@@ -1,0 +1,397 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0BB0893012B306775695F7B2 /* DetailSheets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B25C2BD12D75B1E1BD00D9 /* DetailSheets.swift */; };
+		0BF373018A65247B2B904ED7 /* AutomationSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7A48C5E87769CF807F430A7 /* AutomationSettings.swift */; };
+		0C5ABE7BFEE3D1015A2D05DF /* JunkItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 66BC9FC32AA66479492B06FA /* JunkItem.swift */; };
+		1071D7DDFEFE30F42EA9A15B /* CleanupService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01A875E105854D22D8D192A /* CleanupService.swift */; };
+		15583E64E31D67E3769095C6 /* MoleUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665F2942AD11DEF9FBEE56A9 /* MoleUIApp.swift */; };
+		1DAF8D74C5F2CB7F43A5823B /* PortsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDA4883DDE2C614605C7CDD /* PortsService.swift */; };
+		24562D47A5F3951CD0B7AFDA /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4260103864233DB8D7C38A /* DashboardView.swift */; };
+		32E3FE7AA6F9B8AC8F3DAF7D /* SnapshotService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DA471AD19C48FED71A8CEA /* SnapshotService.swift */; };
+		340FF018550E6B30B31D6048 /* ANSISanitizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02BAE3CFC18BFCCAB6977D77 /* ANSISanitizer.swift */; };
+		3BD294920D83ECB1C3A9A711 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B627BCBFEF880CA2DC470C9 /* AboutView.swift */; };
+		3BEFA026228EDAD23C8BFFAB /* ByteFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B85B72AEB5E63717BF02C71B /* ByteFormatter.swift */; };
+		410335CA4E46B81964BA9DBB /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F29EFE27FD74F5E3AE036806 /* DashboardViewModel.swift */; };
+		4702BE274A3041AB2629BB3B /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC6C6BC92AE8836D594BFD1 /* OnboardingView.swift */; };
+		51909084B7EC62CE0CDB475E /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306396D966A4BD40FB2E85A4 /* MenuBarView.swift */; };
+		630079499D908838C6A12464 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCB8953AE57039F8C975994A /* Assets.xcassets */; };
+		6A43D2136E4F63ECD1B8D354 /* NetworkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05FC3524F254A3CA5C7417EC /* NetworkViewModel.swift */; };
+		6C75F6A1E73C794E0D0F1C52 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95A624CFAE776547277B2E5 /* NotificationService.swift */; };
+		7585F53AA0CFDF3B3EBADE9B /* CleanupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5EB67A3B0CE1B3B34A49B5F0 /* CleanupViewModel.swift */; };
+		79B1F0B02BD43B61296ED5D3 /* MoleError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537FB19992B3D2FEF3080906 /* MoleError.swift */; };
+		80ECFC401D69FAB4C7916E8E /* AutomationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA567DCECCB272C2B55444B /* AutomationView.swift */; };
+		8BADEE96913E3D45199587B8 /* ProcessRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6EC2F13716B824C8F8E9AA1 /* ProcessRunner.swift */; };
+		90883C87892C559A537D8B3D /* AnalyzeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A9C5AF63AC09C73319AD6B6 /* AnalyzeViewModel.swift */; };
+		91184A9F08F6D1C22837139B /* TerminalHandoff.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3C138F0EB674F2F3FD09E7 /* TerminalHandoff.swift */; };
+		A090EC37B1B27D0DE5B5AF60 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DAB3C536C537F0A003D1522 /* OnboardingViewModel.swift */; };
+		A7E9E384F20DE16E63B60DBA /* MoleAnalysis.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7C6FA745C909FA8D11D21FF /* MoleAnalysis.swift */; };
+		AB2B276C632AFFF0C690981A /* NetworkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4089F2E477B45E23EDCAE9 /* NetworkView.swift */; };
+		B5B97A417AC0FD7B79706BD0 /* AnalyzeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4060CAF347F804FC70889B2A /* AnalyzeView.swift */; };
+		BF641E140398B6A80B44E798 /* NetProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AE4ACCF85B0ED5129191EF7 /* NetProcess.swift */; };
+		CBFCA126C01DD4057696A0E6 /* MoleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4ABC3640ED54452545D779 /* MoleService.swift */; };
+		D10DBE5C3713D78C0E59C36B /* PortProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7C0EA0A2A46B272FE0DA66 /* PortProcess.swift */; };
+		D4BCFE9752364B3859F6F0F5 /* MaintenanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320D89D8428A287586BF8115 /* MaintenanceView.swift */; };
+		D5AB87E7C836CD2EF1C1AAAE /* MaintenanceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FBFE86420A6944B2852D4B /* MaintenanceViewModel.swift */; };
+		DC314FD5F649E1974A36309F /* PortsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8B8F6027DE173CF62D88A9 /* PortsView.swift */; };
+		E5702256E08F2A2CCF8F2093 /* PortsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8F2BEA1128FB318F7E8BF2 /* PortsViewModel.swift */; };
+		EC5B8B58EB38A913610C6FA2 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD58101D8D5B68DB40E03E95 /* NetworkService.swift */; };
+		EF25674F00729148FEACE300 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22DBA32FD795ECB2FB23B0B1 /* AppState.swift */; };
+		FCDE762B2FA709BDE5DD7B78 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FA04FC22E5ACCA871ACA60 /* RootView.swift */; };
+		FF62FE9DB32AF096E6484869 /* MoleStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86909823904965211B001125 /* MoleStatus.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		02BAE3CFC18BFCCAB6977D77 /* ANSISanitizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ANSISanitizer.swift; path = Utilities/ANSISanitizer.swift; sourceTree = "<group>"; };
+		05FC3524F254A3CA5C7417EC /* NetworkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NetworkViewModel.swift; path = ViewModels/NetworkViewModel.swift; sourceTree = "<group>"; };
+		0A3C138F0EB674F2F3FD09E7 /* TerminalHandoff.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TerminalHandoff.swift; path = Services/TerminalHandoff.swift; sourceTree = "<group>"; };
+		0DAB3C536C537F0A003D1522 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OnboardingViewModel.swift; path = ViewModels/OnboardingViewModel.swift; sourceTree = "<group>"; };
+		22DBA32FD795ECB2FB23B0B1 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppState.swift; path = Utilities/AppState.swift; sourceTree = "<group>"; };
+		2B627BCBFEF880CA2DC470C9 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AboutView.swift; path = Views/About/AboutView.swift; sourceTree = "<group>"; };
+		2D8F2BEA1128FB318F7E8BF2 /* PortsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PortsViewModel.swift; path = ViewModels/PortsViewModel.swift; sourceTree = "<group>"; };
+		306396D966A4BD40FB2E85A4 /* MenuBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MenuBarView.swift; path = Views/MenuBar/MenuBarView.swift; sourceTree = "<group>"; };
+		320D89D8428A287586BF8115 /* MaintenanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MaintenanceView.swift; path = Views/Maintenance/MaintenanceView.swift; sourceTree = "<group>"; };
+		4060CAF347F804FC70889B2A /* AnalyzeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AnalyzeView.swift; path = Views/Analyze/AnalyzeView.swift; sourceTree = "<group>"; };
+		537FB19992B3D2FEF3080906 /* MoleError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MoleError.swift; path = Models/MoleError.swift; sourceTree = "<group>"; };
+		57B25C2BD12D75B1E1BD00D9 /* DetailSheets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DetailSheets.swift; path = Views/Shared/DetailSheets.swift; sourceTree = "<group>"; };
+		5EB67A3B0CE1B3B34A49B5F0 /* CleanupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CleanupViewModel.swift; path = ViewModels/CleanupViewModel.swift; sourceTree = "<group>"; };
+		665F2942AD11DEF9FBEE56A9 /* MoleUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoleUIApp.swift; sourceTree = "<group>"; };
+		66BC9FC32AA66479492B06FA /* JunkItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = JunkItem.swift; path = Models/JunkItem.swift; sourceTree = "<group>"; };
+		6A4089F2E477B45E23EDCAE9 /* NetworkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NetworkView.swift; path = Views/Network/NetworkView.swift; sourceTree = "<group>"; };
+		6DDA4883DDE2C614605C7CDD /* PortsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PortsService.swift; path = Services/PortsService.swift; sourceTree = "<group>"; };
+		71CCD365E3A654DA84DBA191 /* MoleUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MoleUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		75DA471AD19C48FED71A8CEA /* SnapshotService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = SnapshotService.swift; path = Services/SnapshotService.swift; sourceTree = "<group>"; };
+		7A9C5AF63AC09C73319AD6B6 /* AnalyzeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AnalyzeViewModel.swift; path = ViewModels/AnalyzeViewModel.swift; sourceTree = "<group>"; };
+		7AE4ACCF85B0ED5129191EF7 /* NetProcess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NetProcess.swift; path = Models/NetProcess.swift; sourceTree = "<group>"; };
+		86909823904965211B001125 /* MoleStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MoleStatus.swift; path = Models/MoleStatus.swift; sourceTree = "<group>"; };
+		8C7C0EA0A2A46B272FE0DA66 /* PortProcess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PortProcess.swift; path = Models/PortProcess.swift; sourceTree = "<group>"; };
+		91FA04FC22E5ACCA871ACA60 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RootView.swift; path = Views/RootView.swift; sourceTree = "<group>"; };
+		A6EC2F13716B824C8F8E9AA1 /* ProcessRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProcessRunner.swift; path = Services/ProcessRunner.swift; sourceTree = "<group>"; };
+		A7A48C5E87769CF807F430A7 /* AutomationSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AutomationSettings.swift; path = Utilities/AutomationSettings.swift; sourceTree = "<group>"; };
+		AF8B8F6027DE173CF62D88A9 /* PortsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PortsView.swift; path = Views/Ports/PortsView.swift; sourceTree = "<group>"; };
+		B85B72AEB5E63717BF02C71B /* ByteFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ByteFormatter.swift; path = Utilities/ByteFormatter.swift; sourceTree = "<group>"; };
+		BBA567DCECCB272C2B55444B /* AutomationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AutomationView.swift; path = Views/Automation/AutomationView.swift; sourceTree = "<group>"; };
+		BD58101D8D5B68DB40E03E95 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NetworkService.swift; path = Services/NetworkService.swift; sourceTree = "<group>"; };
+		D7C6FA745C909FA8D11D21FF /* MoleAnalysis.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MoleAnalysis.swift; path = Models/MoleAnalysis.swift; sourceTree = "<group>"; };
+		DF4260103864233DB8D7C38A /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DashboardView.swift; path = Views/Dashboard/DashboardView.swift; sourceTree = "<group>"; };
+		E7FBFE86420A6944B2852D4B /* MaintenanceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MaintenanceViewModel.swift; path = ViewModels/MaintenanceViewModel.swift; sourceTree = "<group>"; };
+		EEC6C6BC92AE8836D594BFD1 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OnboardingView.swift; path = Views/Onboarding/OnboardingView.swift; sourceTree = "<group>"; };
+		F01A875E105854D22D8D192A /* CleanupService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CleanupService.swift; path = Services/CleanupService.swift; sourceTree = "<group>"; };
+		F29EFE27FD74F5E3AE036806 /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DashboardViewModel.swift; path = ViewModels/DashboardViewModel.swift; sourceTree = "<group>"; };
+		F95A624CFAE776547277B2E5 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NotificationService.swift; path = Services/NotificationService.swift; sourceTree = "<group>"; };
+		FCB8953AE57039F8C975994A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FD4ABC3640ED54452545D779 /* MoleService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MoleService.swift; path = Services/MoleService.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		6BC9136C2E1B992EF374A2EA /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		86024CAD1E83101D97359D73 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				71CCD365E3A654DA84DBA191 /* MoleUI.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8D3FC6DB5D0827F168A73277 = {
+			isa = PBXGroup;
+			children = (
+				BB02FE6C4678B79B215868AF /* MoleUI */,
+				86024CAD1E83101D97359D73 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		BB02FE6C4678B79B215868AF /* MoleUI */ = {
+			isa = PBXGroup;
+			children = (
+				66BC9FC32AA66479492B06FA /* JunkItem.swift */,
+				D7C6FA745C909FA8D11D21FF /* MoleAnalysis.swift */,
+				537FB19992B3D2FEF3080906 /* MoleError.swift */,
+				86909823904965211B001125 /* MoleStatus.swift */,
+				7AE4ACCF85B0ED5129191EF7 /* NetProcess.swift */,
+				8C7C0EA0A2A46B272FE0DA66 /* PortProcess.swift */,
+				665F2942AD11DEF9FBEE56A9 /* MoleUIApp.swift */,
+				F01A875E105854D22D8D192A /* CleanupService.swift */,
+				FD4ABC3640ED54452545D779 /* MoleService.swift */,
+				BD58101D8D5B68DB40E03E95 /* NetworkService.swift */,
+				F95A624CFAE776547277B2E5 /* NotificationService.swift */,
+				6DDA4883DDE2C614605C7CDD /* PortsService.swift */,
+				A6EC2F13716B824C8F8E9AA1 /* ProcessRunner.swift */,
+				75DA471AD19C48FED71A8CEA /* SnapshotService.swift */,
+				0A3C138F0EB674F2F3FD09E7 /* TerminalHandoff.swift */,
+				02BAE3CFC18BFCCAB6977D77 /* ANSISanitizer.swift */,
+				22DBA32FD795ECB2FB23B0B1 /* AppState.swift */,
+				A7A48C5E87769CF807F430A7 /* AutomationSettings.swift */,
+				B85B72AEB5E63717BF02C71B /* ByteFormatter.swift */,
+				7A9C5AF63AC09C73319AD6B6 /* AnalyzeViewModel.swift */,
+				5EB67A3B0CE1B3B34A49B5F0 /* CleanupViewModel.swift */,
+				F29EFE27FD74F5E3AE036806 /* DashboardViewModel.swift */,
+				E7FBFE86420A6944B2852D4B /* MaintenanceViewModel.swift */,
+				05FC3524F254A3CA5C7417EC /* NetworkViewModel.swift */,
+				0DAB3C536C537F0A003D1522 /* OnboardingViewModel.swift */,
+				2D8F2BEA1128FB318F7E8BF2 /* PortsViewModel.swift */,
+				2B627BCBFEF880CA2DC470C9 /* AboutView.swift */,
+				4060CAF347F804FC70889B2A /* AnalyzeView.swift */,
+				BBA567DCECCB272C2B55444B /* AutomationView.swift */,
+				DF4260103864233DB8D7C38A /* DashboardView.swift */,
+				320D89D8428A287586BF8115 /* MaintenanceView.swift */,
+				306396D966A4BD40FB2E85A4 /* MenuBarView.swift */,
+				6A4089F2E477B45E23EDCAE9 /* NetworkView.swift */,
+				EEC6C6BC92AE8836D594BFD1 /* OnboardingView.swift */,
+				AF8B8F6027DE173CF62D88A9 /* PortsView.swift */,
+				91FA04FC22E5ACCA871ACA60 /* RootView.swift */,
+				57B25C2BD12D75B1E1BD00D9 /* DetailSheets.swift */,
+				FCB8953AE57039F8C975994A /* Assets.xcassets */,
+			);
+			path = MoleUI;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		42AEFBAE01D2DFD981F7DA7D /* MoleUI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FFB2BC425BA31CD04FF8430C /* Build configuration list for PBXNativeTarget "MoleUI" */;
+			buildPhases = (
+				F680599402C0D80E245DE801 /* Sources */,
+				6BC9136C2E1B992EF374A2EA /* Frameworks */,
+				781C774F390DF12CD292A30B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MoleUI;
+			productName = MoleUI;
+			productReference = 71CCD365E3A654DA84DBA191 /* MoleUI.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		46F86FAA6BBF9AC94A7E4595 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2600;
+				LastUpgradeCheck = 2600;
+				TargetAttributes = {
+					42AEFBAE01D2DFD981F7DA7D = {
+						CreatedOnToolsVersion = 26.0;
+					};
+				};
+			};
+			buildConfigurationList = 5BF065D48D8C23D03623AA6A /* Build configuration list for PBXProject "MoleUI" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 8D3FC6DB5D0827F168A73277;
+			productRefGroup = 86024CAD1E83101D97359D73 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				42AEFBAE01D2DFD981F7DA7D /* MoleUI */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		781C774F390DF12CD292A30B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				630079499D908838C6A12464 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F680599402C0D80E245DE801 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0C5ABE7BFEE3D1015A2D05DF /* JunkItem.swift in Sources */,
+				A7E9E384F20DE16E63B60DBA /* MoleAnalysis.swift in Sources */,
+				79B1F0B02BD43B61296ED5D3 /* MoleError.swift in Sources */,
+				FF62FE9DB32AF096E6484869 /* MoleStatus.swift in Sources */,
+				BF641E140398B6A80B44E798 /* NetProcess.swift in Sources */,
+				D10DBE5C3713D78C0E59C36B /* PortProcess.swift in Sources */,
+				15583E64E31D67E3769095C6 /* MoleUIApp.swift in Sources */,
+				1071D7DDFEFE30F42EA9A15B /* CleanupService.swift in Sources */,
+				CBFCA126C01DD4057696A0E6 /* MoleService.swift in Sources */,
+				EC5B8B58EB38A913610C6FA2 /* NetworkService.swift in Sources */,
+				6C75F6A1E73C794E0D0F1C52 /* NotificationService.swift in Sources */,
+				1DAF8D74C5F2CB7F43A5823B /* PortsService.swift in Sources */,
+				8BADEE96913E3D45199587B8 /* ProcessRunner.swift in Sources */,
+				32E3FE7AA6F9B8AC8F3DAF7D /* SnapshotService.swift in Sources */,
+				91184A9F08F6D1C22837139B /* TerminalHandoff.swift in Sources */,
+				340FF018550E6B30B31D6048 /* ANSISanitizer.swift in Sources */,
+				EF25674F00729148FEACE300 /* AppState.swift in Sources */,
+				0BF373018A65247B2B904ED7 /* AutomationSettings.swift in Sources */,
+				3BEFA026228EDAD23C8BFFAB /* ByteFormatter.swift in Sources */,
+				90883C87892C559A537D8B3D /* AnalyzeViewModel.swift in Sources */,
+				7585F53AA0CFDF3B3EBADE9B /* CleanupViewModel.swift in Sources */,
+				410335CA4E46B81964BA9DBB /* DashboardViewModel.swift in Sources */,
+				D5AB87E7C836CD2EF1C1AAAE /* MaintenanceViewModel.swift in Sources */,
+				6A43D2136E4F63ECD1B8D354 /* NetworkViewModel.swift in Sources */,
+				A090EC37B1B27D0DE5B5AF60 /* OnboardingViewModel.swift in Sources */,
+				E5702256E08F2A2CCF8F2093 /* PortsViewModel.swift in Sources */,
+				3BD294920D83ECB1C3A9A711 /* AboutView.swift in Sources */,
+				B5B97A417AC0FD7B79706BD0 /* AnalyzeView.swift in Sources */,
+				80ECFC401D69FAB4C7916E8E /* AutomationView.swift in Sources */,
+				24562D47A5F3951CD0B7AFDA /* DashboardView.swift in Sources */,
+				D4BCFE9752364B3859F6F0F5 /* MaintenanceView.swift in Sources */,
+				51909084B7EC62CE0CDB475E /* MenuBarView.swift in Sources */,
+				AB2B276C632AFFF0C690981A /* NetworkView.swift in Sources */,
+				4702BE274A3041AB2629BB3B /* OnboardingView.swift in Sources */,
+				DC314FD5F649E1974A36309F /* PortsView.swift in Sources */,
+				FCDE762B2FA709BDE5DD7B78 /* RootView.swift in Sources */,
+				0BB0893012B306775695F7B2 /* DetailSheets.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		730CF80DD274BE744C1E2C80 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = MoleUI/MoleUI.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZVMN5MS6H2;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = MoleUI/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
+				INFOPLIST_KEY_NSMainStoryboardFile = "";
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moleui.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		7F12CAF2F057F1FBD03F6C9C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = MoleUI/MoleUI.entitlements;
+				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = ZVMN5MS6H2;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = MoleUI/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.developer-tools";
+				INFOPLIST_KEY_NSMainStoryboardFile = "";
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.moleui.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		FA9139DD8B03E3F922556BF8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		FFE2104CCFAB79205AC64460 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		5BF065D48D8C23D03623AA6A /* Build configuration list for PBXProject "MoleUI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA9139DD8B03E3F922556BF8 /* Debug */,
+				FFE2104CCFAB79205AC64460 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FFB2BC425BA31CD04FF8430C /* Build configuration list for PBXNativeTarget "MoleUI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				730CF80DD274BE744C1E2C80 /* Debug */,
+				7F12CAF2F057F1FBD03F6C9C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 46F86FAA6BBF9AC94A7E4595 /* Project object */;
+}

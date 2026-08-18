@@ -1,0 +1,27 @@
+<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Original mole silhouette (side view, facing left). Template image: single fill. -->
+  <path fill-rule="evenodd" clip-rule="evenodd" d="
+    M 24 78
+    C 14 74, 10 66, 14 60
+    C 17 55, 24 55, 28 58
+    C 26 49, 30 40, 40 35
+    C 34 33, 30 28, 31 24
+    C 32 20, 37 20, 40 23
+    C 42 25, 43 29, 42 32
+    C 48 29, 56 28, 64 30
+    C 84 34, 98 48, 100 66
+    C 101 78, 94 88, 80 90
+    C 60 93, 40 90, 28 84
+    C 27 84, 25 82, 24 78
+    Z
+    M 46 44
+    C 44 44, 43 46, 44 48
+    C 45 50, 48 50, 49 48
+    C 50 46, 48 44, 46 44
+    Z
+    M 20 74
+    C 22 78, 26 80, 30 79
+    C 27 74, 24 71, 20 71
+    C 18 71, 18 72, 20 74
+    Z" />
+</svg>
