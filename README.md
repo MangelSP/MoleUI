@@ -7,6 +7,7 @@
     <img src="https://img.shields.io/badge/Swift-5.9%2B-orange" alt="Swift" />
     <img src="https://img.shields.io/badge/license-GPL--3.0-green" alt="GPL-3.0" />
   </p>
+  <img src="docs/screenshots/dashboard.png" width="840" alt="MoleUI dashboard" />
 </div>
 
 ---
