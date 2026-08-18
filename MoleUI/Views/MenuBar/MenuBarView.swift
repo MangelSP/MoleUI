@@ -41,6 +41,8 @@ struct MenuBarView: View {
                     NSApp.activate(ignoringOtherApps: true)
                 }
                 actionButton("Clean in Terminal…", "trash") { TerminalHandoff.run("mo clean") }
+                actionButton("Optimize in Terminal…", "bolt") { TerminalHandoff.run("mo optimize") }
+                actionButton("Free RAM", "wand.and.sparkles") { Task { _ = await MemoryService.freeRAM() } }
                 actionButton("Refresh", "arrow.clockwise") { Task { await status.refresh() } }
             }
 

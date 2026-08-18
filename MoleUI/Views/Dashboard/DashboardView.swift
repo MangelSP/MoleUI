@@ -5,38 +5,45 @@ struct DashboardView: View {
     @EnvironmentObject private var vm: DashboardViewModel
     @State private var detailProcess: MoleStatus.ProcessInfo?
     @State private var detailIface: MoleStatus.NetInterface?
+    @State private var freeingRAM = false
 
     private let columns = [GridItem(.adaptive(minimum: 300), spacing: 14)]
 
     var body: some View {
-        ScrollView {
+        Group {
             if let s = vm.status {
-                LazyVGrid(columns: columns, spacing: 14) {
-                    healthCard(s)
-                    cpuCard(s)
-                    gpuCard(s)
-                    memoryCard(s)
-                    batteryCard(s)
-                    diskCard(s)
-                    networkCard(s)
-                    fanCard(s)
-                }
-                .padding(16)
+                ScrollView {
+                    LazyVGrid(columns: columns, spacing: 14) {
+                        healthCard(s)
+                        cpuCard(s)
+                        gpuCard(s)
+                        memoryCard(s)
+                        batteryCard(s)
+                        diskCard(s)
+                        networkCard(s)
+                        fanCard(s)
+                    }
+                    .padding(16)
 
-                processTable(s.topProcesses)
-                    .padding([.horizontal, .bottom], 16)
-                    .sheet(item: $detailProcess) { ProcessDetailView(process: $0) }
-                    .sheet(item: $detailIface) { NetworkDetailView(iface: $0) }
+                    processTable(s.topProcesses)
+                        .padding([.horizontal, .bottom], 16)
+                }
             } else if let err = vm.errorText {
                 ContentUnavailableView("Couldn't load status", systemImage: "exclamationmark.triangle", description: Text(err))
-                    .padding(.top, 80)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else {
-                ProgressView("Reading system status…").padding(.top, 80)
+                VStack(spacing: 14) {
+                    ProgressView().controlSize(.large).tint(Theme.emerald)
+                    Text("Reading system status…").font(.monoLabel(12)).foregroundStyle(.secondary)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
         }
         .background(Theme.bg)
         .navigationTitle("Dashboard")
         .task { vm.startPolling() }
+        .sheet(item: $detailProcess) { ProcessDetailView(process: $0) }
+        .sheet(item: $detailIface) { NetworkDetailView(iface: $0) }
     }
 
     // MARK: Card header
@@ -104,7 +111,22 @@ struct DashboardView: View {
     private func memoryCard(_ s: MoleStatus) -> some View {
         let m = s.memory
         return VStack(alignment: .leading, spacing: 10) {
-            header("MEMORY", "memorychip", badge: (s.hardware.totalRam, .secondary))
+            HStack {
+                HStack(spacing: 6) {
+                    Image(systemName: "memorychip").font(.system(size: 11))
+                    Text("MEMORY").font(.monoLabel(11)).tracking(1)
+                }.foregroundStyle(Theme.emerald)
+                Spacer()
+                Button {
+                    freeingRAM = true
+                    Task { let ok = await MemoryService.freeRAM(); freeingRAM = false; if ok { await vm.refresh() } }
+                } label: {
+                    if freeingRAM { ProgressView().controlSize(.mini) }
+                    else { Label("Free RAM", systemImage: "wand.and.sparkles").font(.caption) }
+                }
+                .buttonStyle(.borderless).help("Purge inactive memory (asks for your password)")
+                Badge(s.hardware.totalRam)
+            }
             Readout(value: "\(Int(m.usedPercent))", unit: "%", size: 30, tint: Theme.load(m.usedPercent))
             Sparkline(samples: vm.memHistory, tint: Theme.load(m.usedPercent))
             Text("\(Bytes.string(m.used)) · \(Bytes.string(m.swapUsed)) swap")
