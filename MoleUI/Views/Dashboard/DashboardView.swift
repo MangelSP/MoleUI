@@ -1,195 +1,281 @@
 import SwiftUI
+import AppKit
 
 struct DashboardView: View {
-    // Shared with the menu-bar monitor; polling is owned at app level, not here.
     @EnvironmentObject private var vm: DashboardViewModel
     @State private var detailProcess: MoleStatus.ProcessInfo?
     @State private var detailIface: MoleStatus.NetInterface?
 
-    private let columns = [GridItem(.adaptive(minimum: 260), spacing: 16)]
+    private let columns = [GridItem(.adaptive(minimum: 300), spacing: 14)]
 
     var body: some View {
         ScrollView {
             if let s = vm.status {
-                LazyVGrid(columns: columns, spacing: 16) {
+                LazyVGrid(columns: columns, spacing: 14) {
                     healthCard(s)
-                    cpuCard(s.cpu)
-                    memoryCard(s.memory)
-                    networkCard(s.network)
-                    ForEach(s.disks.filter { !$0.mount.contains("CoreSimulator") }) { diskCard($0) }
+                    cpuCard(s)
+                    gpuCard(s)
+                    memoryCard(s)
+                    batteryCard(s)
+                    diskCard(s)
+                    networkCard(s)
+                    fanCard(s)
                 }
-                .padding()
+                .padding(16)
 
-                topProcesses(s.topProcesses)
-                    .padding([.horizontal, .bottom])
+                processTable(s.topProcesses)
+                    .padding([.horizontal, .bottom], 16)
                     .sheet(item: $detailProcess) { ProcessDetailView(process: $0) }
                     .sheet(item: $detailIface) { NetworkDetailView(iface: $0) }
             } else if let err = vm.errorText {
                 ContentUnavailableView("Couldn't load status", systemImage: "exclamationmark.triangle", description: Text(err))
                     .padding(.top, 80)
             } else {
-                ProgressView("Loading system status…").padding(.top, 80)
+                ProgressView("Reading system status…").padding(.top, 80)
             }
         }
+        .background(Theme.bg)
         .navigationTitle("Dashboard")
-        .toolbar {
-            ToolbarItem(placement: .primaryAction) {
-                if vm.isLoading { ProgressView().controlSize(.small) }
+        .task { vm.startPolling() }
+    }
+
+    // MARK: Card header
+
+    private func header(_ title: String, _ icon: String, badge: (String, Color)? = nil) -> some View {
+        HStack {
+            HStack(spacing: 6) {
+                Image(systemName: icon).font(.system(size: 11))
+                Text(title).font(.monoLabel(11)).tracking(1)
             }
+            .foregroundStyle(Theme.emerald)
+            Spacer()
+            if let (t, c) = badge { Badge(t, tint: c) }
         }
-        .task { vm.startPolling() }  // idempotent; poller lives at app level
     }
 
     // MARK: Cards
 
     private func healthCard(_ s: MoleStatus) -> some View {
-        StatCard(title: "Health Score", systemImage: "heart.text.square") {
-            HStack(spacing: 16) {
-                RingGauge(value: Double(s.healthScore) / 100, label: "\(s.healthScore)",
-                          tint: healthTint(s.healthScore))
-                    .frame(width: 84, height: 84)
-                VStack(alignment: .leading, spacing: 4) {
-                    Text(s.healthScoreMsg).font(.callout).fixedSize(horizontal: false, vertical: true)
-                    Text("Uptime \(s.uptime) · \(s.procs) procs")
-                        .font(.caption).foregroundStyle(.secondary)
-                }
-            }
-        }
-    }
-
-    private func cpuCard(_ cpu: MoleStatus.CPU) -> some View {
-        StatCard(title: "CPU", systemImage: "cpu") {
-            VStack(alignment: .leading, spacing: 8) {
-                HStack {
-                    Text("\(Int(cpu.usage))%").font(.title2.bold().monospacedDigit())
-                    Spacer()
-                    Text("load \(cpu.load1, specifier: "%.1f")").font(.caption).foregroundStyle(.secondary)
-                }
-                ForEach(Array(cpu.perCore.enumerated()), id: \.offset) { i, v in
-                    BarRow(label: "Core \(i)", fraction: v / 100, valueText: "\(Int(v))%")
-                }
-                Text("\(cpu.pCoreCount)P + \(cpu.eCoreCount)E cores")
-                    .font(.caption2).foregroundStyle(.secondary)
-            }
-        }
-    }
-
-    private func memoryCard(_ m: MoleStatus.Memory) -> some View {
-        StatCard(title: "Memory", systemImage: "memorychip") {
-            VStack(alignment: .leading, spacing: 8) {
-                Text("\(Bytes.string(m.used)) / \(Bytes.string(m.total))")
-                    .font(.title3.bold())
-                BarRow(label: "RAM", fraction: m.usedPercent / 100, valueText: "\(Int(m.usedPercent))%")
-                if m.swapTotal > 0 {
-                    BarRow(label: "Swap", fraction: Double(m.swapUsed) / Double(m.swapTotal),
-                           valueText: Bytes.string(m.swapUsed))
-                }
-                Text("Cached \(Bytes.string(m.cached))").font(.caption2).foregroundStyle(.secondary)
-            }
-        }
-    }
-
-    private func diskCard(_ d: MoleStatus.Disk) -> some View {
-        StatCard(title: d.mount == "/" ? "Disk" : d.mount, systemImage: "internaldrive") {
-            VStack(alignment: .leading, spacing: 8) {
-                Text("\(Bytes.string(d.used)) / \(Bytes.string(d.total))").font(.title3.bold())
-                BarRow(label: d.fstype.uppercased(), fraction: d.usedPercent / 100,
-                       valueText: "\(Int(d.usedPercent))%",
-                       tint: d.usedPercent > 90 ? .red : .blue)
+        VStack(alignment: .leading, spacing: 12) {
+            HStack {
                 HStack(spacing: 6) {
-                    Image(systemName: d.smartStatus == "verified" ? "checkmark.seal" : "questionmark.circle")
-                    Text("SMART: \(d.smartStatus)")
-                }.font(.caption2).foregroundStyle(.secondary)
+                    Image(systemName: "heart.text.square").font(.system(size: 11))
+                    Text("HEALTH").font(.monoLabel(11)).tracking(1)
+                }.foregroundStyle(Theme.emerald)
+                Spacer()
+                Badge(s.hardware.cpuModel.replacingOccurrences(of: "Apple ", with: ""))
+                Badge(s.hardware.totalRam)
+                Badge(s.hardware.osVersion)
+            }
+            HStack(alignment: .center, spacing: 12) {
+                VStack(alignment: .leading, spacing: 4) {
+                    HStack(alignment: .firstTextBaseline, spacing: 8) {
+                        Text("\(s.healthScore)").font(.display(40)).monospacedDigit()
+                            .foregroundStyle(Theme.health(s.healthScore))
+                        Text(healthWord(s.healthScore)).font(.display(16, .medium)).foregroundStyle(.secondary)
+                    }
+                    Text(s.healthScoreMsg).font(.caption).foregroundStyle(.secondary)
+                        .lineLimit(2).fixedSize(horizontal: false, vertical: true)
+                    Text("up \(s.uptime) · \(s.procs) procs").font(.monoLabel(10)).foregroundStyle(.tertiary)
+                }
+                Spacer()
+                RingGauge(value: Double(s.healthScore) / 100, label: "\(s.healthScore)",
+                          tint: Theme.health(s.healthScore))
+                    .frame(width: 64, height: 64)
             }
         }
+        .moleCard()
     }
 
-    private func networkCard(_ ifaces: [MoleStatus.NetInterface]) -> some View {
-        let active = ifaces.filter(\.isActive)
-        return StatCard(title: "Network", systemImage: "network") {
-            VStack(alignment: .leading, spacing: 8) {
-                if active.isEmpty {
-                    Text("No active interfaces").font(.callout).foregroundStyle(.secondary)
-                } else {
-                    ForEach(active) { i in
-                        HStack(spacing: 8) {
-                            VStack(alignment: .leading, spacing: 1) {
-                                Text(i.name).font(.callout.bold())
-                                Text(i.ip.isEmpty ? "—" : i.ip).font(.caption2).foregroundStyle(.secondary)
-                            }
-                            Spacer()
-                            VStack(alignment: .trailing, spacing: 1) {
-                                Text("↓ \(rateString(i.rxRateMbs))").font(.caption.monospacedDigit())
-                                Text("↑ \(rateString(i.txRateMbs))").font(.caption.monospacedDigit())
-                                    .foregroundStyle(.secondary)
-                            }
-                            Button { detailIface = i } label: { Image(systemName: "info.circle") }
-                                .buttonStyle(.borderless).help("Interface details")
-                        }
+    private func cpuCard(_ s: MoleStatus) -> some View {
+        let cpu = s.cpu
+        return VStack(alignment: .leading, spacing: 10) {
+            header("CPU", "cpu",
+                   badge: s.thermal.cpuTemp > 0 ? ("\(Int(s.thermal.cpuTemp))°C", Theme.amber)
+                                                : ("\(cpu.pCoreCount)P+\(cpu.eCoreCount)E", .secondary))
+            Readout(value: "\(Int(cpu.usage))", unit: "%", size: 30, tint: Theme.load(cpu.usage))
+            CoreBars(values: cpu.perCore)
+            Text("\(cpuState(cpu.usage)) · Load \(cpu.load1, specifier: "%.1f") / \(cpu.perCore.count) cores")
+                .font(.monoLabel(10)).foregroundStyle(.secondary)
+        }
+        .moleCard()
+    }
+
+    private func memoryCard(_ s: MoleStatus) -> some View {
+        let m = s.memory
+        return VStack(alignment: .leading, spacing: 10) {
+            header("MEMORY", "memorychip", badge: (s.hardware.totalRam, .secondary))
+            Readout(value: "\(Int(m.usedPercent))", unit: "%", size: 30, tint: Theme.load(m.usedPercent))
+            Sparkline(samples: vm.memHistory, tint: Theme.load(m.usedPercent))
+            Text("\(Bytes.string(m.used)) · \(Bytes.string(m.swapUsed)) swap")
+                .font(.monoLabel(10)).foregroundStyle(.secondary)
+        }
+        .moleCard()
+    }
+
+    private func diskCard(_ s: MoleStatus) -> some View {
+        let d = s.disks.first(where: { $0.mount == "/" }) ?? s.disks.first
+        return VStack(alignment: .leading, spacing: 10) {
+            header("DISK", "internaldrive", badge: (Bytes.string(d?.total ?? 0), .secondary))
+            if let d {
+                Readout(value: Bytes.string(d.total - d.used), unit: "free", size: 26)
+                Meter(fraction: d.usedPercent / 100, tint: Theme.load(d.usedPercent))
+                Text("\(Bytes.string(d.used)) used · \(Int(d.usedPercent))% · SMART \(d.smartStatus)")
+                    .font(.monoLabel(10)).foregroundStyle(.secondary)
+            }
+        }
+        .moleCard()
+    }
+
+    private func networkCard(_ s: MoleStatus) -> some View {
+        let net = s.network.first(where: \.isActive)
+        return VStack(alignment: .leading, spacing: 10) {
+            HStack {
+                HStack(spacing: 6) {
+                    Image(systemName: "network").font(.system(size: 11))
+                    Text("NETWORK").font(.monoLabel(11)).tracking(1)
+                }.foregroundStyle(Theme.emerald)
+                Spacer()
+                if let net {
+                    Button { detailIface = net } label: { Image(systemName: "info.circle") }
+                        .buttonStyle(.borderless).help("Interface details")
+                }
+                Badge(net?.name ?? "—")
+            }
+            Readout(value: rateString(net?.rxRateMbs ?? 0), size: 26)
+            ZStack {
+                Sparkline(samples: vm.netRxHistory, tint: Theme.emerald)
+                Sparkline(samples: vm.netTxHistory, tint: Theme.sky)
+            }
+            Text("↑ \(rateString(net?.txRateMbs ?? 0)) · \(net?.ip ?? "offline")")
+                .font(.monoLabel(10)).foregroundStyle(.secondary)
+        }
+        .moleCard()
+    }
+
+    private func gpuCard(_ s: MoleStatus) -> some View {
+        let gpu = s.gpu.first
+        let usage = gpu?.usage ?? -1
+        return VStack(alignment: .leading, spacing: 10) {
+            header("GPU", "cpu.fill",
+                   badge: s.thermal.gpuTemp > 0 ? ("\(Int(s.thermal.gpuTemp))°C", Theme.amber)
+                                                : ("\(gpu?.coreCount ?? 0) cores", .secondary))
+            Readout(value: usage >= 0 ? "\(Int(usage))" : "idle", unit: usage >= 0 ? "%" : nil,
+                    size: 30, tint: usage >= 0 ? Theme.load(usage) : .secondary)
+            Sparkline(samples: usage >= 0 ? vm.cpuHistory : [0, 0], tint: Theme.sky)
+                .opacity(usage >= 0 ? 1 : 0.25)
+            Text("\(usage >= 0 ? "active" : "idle") · \(gpu?.coreCount ?? 0) GPU cores")
+                .font(.monoLabel(10)).foregroundStyle(.secondary)
+        }
+        .moleCard()
+    }
+
+    private func batteryCard(_ s: MoleStatus) -> some View {
+        let t = s.thermal
+        return VStack(alignment: .leading, spacing: 10) {
+            header("BATTERY", "battery.100",
+                   badge: s.batteries.first.map { ("\($0.capacity)% health", Color.secondary) })
+            if let b = s.batteries.first {
+                HStack(alignment: .firstTextBaseline, spacing: 8) {
+                    Readout(value: "\(b.percent)", unit: "%", size: 30, tint: Theme.load(Double(100 - b.percent)))
+                    Text(b.status == "charged" ? "charged" : (b.timeLeft == "0:00" ? b.status : "\(b.timeLeft) left"))
+                        .font(.callout).foregroundStyle(.secondary)
+                    if t.adapterPower > 0 {
+                        Text("⚡\(Int(t.adapterPower))W").font(.monoLabel(11)).foregroundStyle(Theme.emerald)
                     }
                 }
+                Text("\(b.cycleCount) cycles · \(Int(t.batteryTemp))°C · \(b.health)")
+                    .font(.monoLabel(10)).foregroundStyle(.secondary)
+            } else {
+                Text("No battery").font(.callout).foregroundStyle(.secondary).padding(.vertical, 8)
             }
         }
+        .moleCard()
     }
 
-    private func topProcesses(_ procs: [MoleStatus.ProcessInfo]) -> some View {
-        StatCard(title: "Top Processes", systemImage: "list.bullet.rectangle") {
-            Table(procs) {
-                TableColumn("Process") { Text($0.name).lineLimit(1) }
-                TableColumn("CPU %") { Text("\($0.cpu, specifier: "%.1f")").monospacedDigit() }
-                    .width(60)
-                TableColumn("Memory") { Text(Bytes.string($0.memoryBytes)).monospacedDigit() }
-                    .width(80)
-                TableColumn("") { p in
-                    Button { detailProcess = p } label: { Image(systemName: "info.circle") }
-                        .buttonStyle(.borderless).help("Process details")
-                }.width(40)
+    private func fanCard(_ s: MoleStatus) -> some View {
+        let t = s.thermal
+        return VStack(alignment: .leading, spacing: 10) {
+            header("FAN", "fanblades", badge: t.systemPower > 0 ? ("\(Int(t.systemPower))W", Theme.amber) : nil)
+            Readout(value: t.fanSpeed > 0 ? Int(t.fanSpeed).formatted() : "—",
+                    unit: t.fanSpeed > 0 ? "RPM" : nil, size: 26)
+            Text(t.fanSpeed > 0 ? "Managed by macOS · \(t.fanCount) fan\(t.fanCount == 1 ? "" : "s")"
+                                : "Silent · managed by macOS")
+                .font(.monoLabel(10)).foregroundStyle(.secondary)
+        }
+        .moleCard()
+    }
+
+    // MARK: Process table
+
+    private func processTable(_ procs: [MoleStatus.ProcessInfo]) -> some View {
+        VStack(alignment: .leading, spacing: 0) {
+            HStack(spacing: 8) {
+                Text("TOP PROCESSES").font(.monoLabel(11)).tracking(1).foregroundStyle(Theme.emerald)
+                Spacer()
+                Text("CPU").font(.monoLabel(10)).foregroundStyle(.secondary).frame(width: 96, alignment: .trailing)
+                Text("MEM").font(.monoLabel(10)).foregroundStyle(.secondary).frame(width: 72, alignment: .trailing)
+                Spacer().frame(width: 28)
             }
-            .frame(minHeight: 200)
+            .padding(.bottom, 8)
+            ForEach(procs) { p in
+                Divider().overlay(Theme.hairline)
+                HStack(spacing: 10) {
+                    ProcIcon(pid: p.pid)
+                    Text(p.name).font(.system(size: 13, weight: .medium)).lineLimit(1)
+                    Spacer(minLength: 8)
+                    Capsule().fill(.white.opacity(0.06)).frame(width: 46, height: 5)
+                        .overlay(alignment: .leading) {
+                            Capsule().fill(Theme.load(p.cpu)).frame(width: 46 * min(1, p.cpu / 100), height: 5)
+                        }
+                    Text("\(p.cpu, specifier: "%.1f")").font(.system(.callout, design: .monospaced))
+                        .foregroundStyle(p.cpu >= 50 ? Theme.amber : .primary).frame(width: 46, alignment: .trailing)
+                    Text(Bytes.string(p.memoryBytes)).font(.system(.callout, design: .monospaced))
+                        .foregroundStyle(.secondary).frame(width: 72, alignment: .trailing)
+                    Button { detailProcess = p } label: { Image(systemName: "ellipsis") }
+                        .buttonStyle(.borderless).foregroundStyle(.secondary).frame(width: 28)
+                }
+                .padding(.vertical, 7)
+            }
         }
+        .moleCard()
     }
 
-    private func healthTint(_ score: Int) -> Color {
-        switch score {
-        case 80...: return .green
-        case 50..<80: return .yellow
-        default: return .red
-        }
-    }
+    // MARK: Helpers
+
+    private func healthWord(_ s: Int) -> String { s >= 80 ? "Excellent" : (s >= 50 ? "Fair" : "Needs care") }
+    private func cpuState(_ u: Double) -> String { u < 40 ? "normal" : (u < 75 ? "busy" : "hot") }
 }
 
-// MARK: - Reusable card chrome
-
-struct StatCard<Content: View>: View {
-    let title: String
-    let systemImage: String
-    @ViewBuilder let content: () -> Content
-
+/// App icon for a pid (GUI apps), falling back to a generic glyph for daemons.
+struct ProcIcon: View {
+    let pid: Int
     var body: some View {
-        GroupBox {
-            content()
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.top, 4)
-        } label: {
-            Label(title, systemImage: systemImage).font(.headline)
+        if let app = NSRunningApplication(processIdentifier: pid_t(pid)), let icon = app.icon {
+            Image(nsImage: icon).resizable().frame(width: 18, height: 18)
+        } else {
+            Image(systemName: "terminal").font(.system(size: 11)).foregroundStyle(.secondary)
+                .frame(width: 18, height: 18)
         }
-        .groupBoxStyle(.automatic)
     }
 }
 
-struct RingGauge: View {
-    let value: Double        // 0...1
-    let label: String
-    var tint: Color = .accentColor
+// MARK: - Shared gauges (also used by the menu-bar monitor)
 
+/// Signature ring — emerald gradient over a faint track with a rounded readout.
+struct RingGauge: View {
+    let value: Double
+    let label: String
+    var tint: Color = Theme.emerald
     var body: some View {
         ZStack {
-            Circle().stroke(.quaternary, lineWidth: 8)
+            Circle().stroke(.white.opacity(0.08), lineWidth: 8)
             Circle()
                 .trim(from: 0, to: max(0, min(1, value)))
-                .stroke(tint, style: StrokeStyle(lineWidth: 8, lineCap: .round))
+                .stroke(AngularGradient(colors: [tint.opacity(0.5), tint], center: .center),
+                        style: StrokeStyle(lineWidth: 8, lineCap: .round))
                 .rotationEffect(.degrees(-90))
-            Text(label).font(.title2.bold().monospacedDigit())
+            Text(label).font(.display(20)).monospacedDigit()
         }
     }
 }
@@ -198,16 +284,14 @@ struct BarRow: View {
     let label: String
     let fraction: Double
     let valueText: String
-    var tint: Color = .accentColor
-
+    var tint: Color = Theme.emerald
     var body: some View {
         HStack(spacing: 8) {
-            Text(label).font(.caption).frame(width: 52, alignment: .leading).lineLimit(1)
+            Text(label).font(.caption).frame(width: 52, alignment: .leading).lineLimit(1).foregroundStyle(.secondary)
             GeometryReader { geo in
                 ZStack(alignment: .leading) {
-                    Capsule().fill(.quaternary)
-                    Capsule().fill(tint)
-                        .frame(width: geo.size.width * max(0, min(1, fraction)))
+                    Capsule().fill(.white.opacity(0.08))
+                    Capsule().fill(tint).frame(width: geo.size.width * max(0, min(1, fraction)))
                 }
             }
             .frame(height: 8)

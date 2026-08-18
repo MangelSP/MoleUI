@@ -39,6 +39,7 @@ struct AboutView: View {
             .frame(maxWidth: .infinity)
             .padding(24)
         }
+        .background(Theme.bg)
         .navigationTitle("About")
         .task { installPath = await MoleService.shared.installLocation() ?? "Not found" }
     }
@@ -54,22 +55,19 @@ struct AboutView: View {
     }
 
     private var poweredByMole: some View {
-        GroupBox {
+        SectionCard(title: "Powered by Mole", systemImage: "bolt.heart") {
             VStack(alignment: .leading, spacing: 10) {
-                Label("Powered by Mole", systemImage: "bolt.heart").font(.title3.bold())
                 Text("All system analysis and cleanup is performed by **Mole (`mo`)**, the open-source tool by **tw93**. MoleUI is an independent front end for the community — free, non-commercial, and open source.")
                     .fixedSize(horizontal: false, vertical: true)
                 Link(destination: moleRepo) { Label("github.com/tw93/mole", systemImage: "arrow.up.right.square") }
                     .buttonStyle(.bordered)
             }
-            .frame(maxWidth: .infinity, alignment: .leading).padding(6)
         }
     }
 
     private var developer: some View {
-        GroupBox {
+        SectionCard(title: "GUI developed by", systemImage: "hammer") {
             VStack(alignment: .leading, spacing: 12) {
-                Label("GUI developed by", systemImage: "hammer").font(.title3.bold())
                 HStack(spacing: 14) {
                     AsyncImage(url: avatar) { img in img.resizable().scaledToFill() } placeholder: {
                         Image(systemName: "person.crop.circle.fill").resizable().foregroundStyle(.secondary)
@@ -95,14 +93,12 @@ struct AboutView: View {
                     }
                 }
             }
-            .frame(maxWidth: .infinity, alignment: .leading).padding(6)
         }
     }
 
     private var installAndUpdate: some View {
-        GroupBox {
+        SectionCard(title: "Mole installation", systemImage: "shippingbox") {
             VStack(alignment: .leading, spacing: 10) {
-                Label("Mole installation", systemImage: "shippingbox").font(.title3.bold())
                 DetailRow(label: "Version", value: appState.moVersion.isEmpty ? "unknown" : appState.moVersion)
                 DetailRow(label: "Location", value: installPath, mono: true)
                 HStack {
@@ -116,14 +112,12 @@ struct AboutView: View {
                 Text("Updates run in Terminal via `mo update` — use this if Mole starts erroring.")
                     .font(.caption).foregroundStyle(.secondary)
             }
-            .frame(maxWidth: .infinity, alignment: .leading).padding(6)
         }
     }
 
     private var snapshot: some View {
-        GroupBox {
+        SectionCard(title: "Audit snapshot", systemImage: "doc.badge.arrow.up") {
             VStack(alignment: .leading, spacing: 10) {
-                Label("Audit snapshot", systemImage: "doc.badge.arrow.up").font(.title3.bold())
                 Text("Export a full JSON snapshot (system status + listening ports) for auditing.")
                     .font(.callout).foregroundStyle(.secondary)
                 HStack(spacing: 10) {
@@ -139,7 +133,6 @@ struct AboutView: View {
                     }
                 }
             }
-            .frame(maxWidth: .infinity, alignment: .leading).padding(6)
         }
     }
 

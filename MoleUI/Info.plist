@@ -15,16 +15,16 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>1.1.0</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>2</string>
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.utilities</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>14.0</string>
-	<key>NSHumanReadableCopyright</key>
-	<string>MoleUI — front end for Mole (mo) by tw93.</string>
 	<key>NSAppleEventsUsageDescription</key>
 	<string>MoleUI opens Terminal to run Mole's interactive cleanup commands.</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>MoleUI — front end for Mole (mo) by tw93.</string>
 </dict>
 </plist>

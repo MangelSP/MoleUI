@@ -15,6 +15,7 @@ struct AutomationView: View {
             .frame(maxWidth: .infinity)
             .padding(24)
         }
+        .background(Theme.bg)
         .navigationTitle("Automation")
         .confirmationDialog(
             "Move \(vm.selectedItems.count) item(s) — \(Bytes.string(vm.selectedTotal)) — to Trash?",
@@ -30,10 +31,10 @@ struct AutomationView: View {
     // MARK: Alerts
 
     private var alerts: some View {
-        GroupBox {
+        VStack(alignment: .leading, spacing: 12) {
             VStack(alignment: .leading, spacing: 12) {
                 Toggle(isOn: $settings.alertsEnabled) {
-                    Label("Threshold notifications", systemImage: "bell.badge").font(.headline)
+                    Label("Threshold notifications", systemImage: "bell.badge").font(.display(15, .semibold))
                 }
                 Text("Get a macOS notification when a resource crosses its limit (edge-triggered, 10-min cooldown).")
                     .font(.caption).foregroundStyle(.secondary)
@@ -45,9 +46,8 @@ struct AutomationView: View {
                 Text("Temperature only fires when a real sensor reading is available (needs elevated perms on Apple Silicon).")
                     .font(.caption2).foregroundStyle(.secondary)
             }
-            .disabled(!settings.alertsEnabled && false)
-            .frame(maxWidth: .infinity, alignment: .leading).padding(6)
         }
+        .moleCard()
     }
 
     private func thresholdRow(_ label: String, value: Binding<Double>, unit: String) -> some View {
@@ -62,10 +62,10 @@ struct AutomationView: View {
     // MARK: Auto-Clean
 
     private var autoClean: some View {
-        GroupBox {
+        VStack(alignment: .leading, spacing: 12) {
             VStack(alignment: .leading, spacing: 12) {
                 Toggle(isOn: $settings.autoCleanEnabled) {
-                    Label("Scheduled clean job", systemImage: "clock.arrow.circlepath").font(.headline)
+                    Label("Scheduled clean job", systemImage: "clock.arrow.circlepath").font(.display(15, .semibold))
                 }
                 Text("Periodically scans for build junk (node_modules, target, dist, .build…) and notifies you. **Nothing is deleted automatically** — you review and confirm.")
                     .font(.caption).foregroundStyle(.secondary)
@@ -103,8 +103,8 @@ struct AutomationView: View {
 
                 results
             }
-            .frame(maxWidth: .infinity, alignment: .leading).padding(6)
         }
+        .moleCard()
     }
 
     @ViewBuilder private var results: some View {

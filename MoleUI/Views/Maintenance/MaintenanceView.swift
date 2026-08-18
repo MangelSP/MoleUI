@@ -10,6 +10,7 @@ struct MaintenanceView: View {
             handoffBanner
             preview
         }
+        .background(Theme.bg)
         .navigationTitle("Maintenance")
         .task(id: vm.selected) { await vm.loadPreview() }
     }

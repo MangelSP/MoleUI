@@ -175,33 +175,79 @@ struct NetProcessDetailView: View {
     }
 }
 
-/// Read-only detail for a process from the dashboard's top-processes list.
+/// Reference-style process inspector: identity + ancestry + live counts, with
+/// Terminate / Force Quit.
 struct ProcessDetailView: View {
     let process: MoleStatus.ProcessInfo
     @Environment(\.dismiss) private var dismiss
-    @State private var fullCommand = ""
+    @State private var d = ProcessDetail()
+    @State private var loading = true
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 16) {
-            HStack {
-                Label(process.name, systemImage: "cpu").font(.title2.bold()).lineLimit(1)
+        VStack(alignment: .leading, spacing: 14) {
+            HStack(spacing: 12) {
+                ProcIcon(pid: process.pid).scaleEffect(1.6).frame(width: 34, height: 34)
+                Text(process.name).font(.display(22)).lineLimit(1)
                 Spacer()
-                Button("Done") { dismiss() }
+                Button { dismiss() } label: { Image(systemName: "xmark.circle.fill").font(.title3) }
+                    .buttonStyle(.borderless).foregroundStyle(.secondary)
             }
-            GroupBox {
-                VStack(spacing: 8) {
-                    DetailRow(label: "PID", value: "\(process.pid)")
-                    DetailRow(label: "Parent PID", value: "\(process.ppid)")
-                    DetailRow(label: "CPU", value: String(format: "%.1f%%", process.cpu))
-                    DetailRow(label: "Memory", value: "\(Bytes.string(process.memoryBytes)) (\(String(format: "%.1f", process.memory))%)")
-                    DetailRow(label: "Command", value: process.command)
-                    DetailRow(label: "Full path", value: fullCommand, mono: true)
-                }.padding(6)
+
+            Text("PID \(process.pid) · CPU \(process.cpu, specifier: "%.1f")% · MEM \(Bytes.string(process.memoryBytes)) · \(d.user.isEmpty ? "…" : d.user)")
+                .font(.monoLabel(11)).foregroundStyle(.secondary)
+
+            if d.ancestry.count > 1 {
+                breadcrumb
             }
+
+            Divider().overlay(Theme.hairline)
+
+            VStack(spacing: 9) {
+                DetailRow(label: "Threads", value: loading ? "…" : "\(d.threads)")
+                DetailRow(label: "Open files", value: loading ? "…" : "\(d.openFiles)")
+                DetailRow(label: "Started", value: d.started.isEmpty ? "…" : d.started)
+                DetailRow(label: "Working dir", value: d.cwd, mono: true)
+                DetailRow(label: "Executable", value: d.executable, mono: true)
+                DetailRow(label: "Command", value: d.command, mono: true)
+            }
+
             Spacer()
+            HStack {
+                Button { copySummary() } label: { Label("Copy", systemImage: "doc.on.doc") }
+                Button { reveal() } label: { Label("Reveal", systemImage: "folder") }
+                    .disabled(d.executable.isEmpty)
+                Spacer()
+                Button { kill(force: false) } label: { Text("Terminate") }
+                Button(role: .destructive) { kill(force: true) } label: { Text("Force Quit") }
+                    .tint(Theme.danger)
+            }
         }
         .padding(20)
-        .frame(width: 460, height: 340)
-        .task { fullCommand = await PortsService.fullCommand(pid: process.pid) }
+        .frame(width: 520, height: 460)
+        .task { d = await ProcessService.detail(pid: process.pid); loading = false }
+    }
+
+    private var breadcrumb: some View {
+        HStack(spacing: 4) {
+            ForEach(Array(d.ancestry.enumerated()), id: \.offset) { i, node in
+                if i > 0 { Image(systemName: "chevron.right").font(.system(size: 8)).foregroundStyle(.tertiary) }
+                Text(node.name).font(.monoLabel(10))
+                    .foregroundStyle(i == d.ancestry.count - 1 ? AnyShapeStyle(Theme.emerald) : AnyShapeStyle(.secondary))
+                Text("\(node.pid)").font(.monoLabel(10)).foregroundStyle(.tertiary)
+            }
+        }
+    }
+
+    private func copySummary() {
+        let text = "\(process.name) (pid \(process.pid))\nCPU \(process.cpu)% · MEM \(Bytes.string(process.memoryBytes))\nUser \(d.user) · Threads \(d.threads) · Open files \(d.openFiles)\n\(d.command)"
+        NSPasteboard.general.clearContents(); NSPasteboard.general.setString(text, forType: .string)
+    }
+
+    private func reveal() {
+        NSWorkspace.shared.activateFileViewerSelecting([URL(fileURLWithPath: d.executable)])
+    }
+
+    private func kill(force: Bool) {
+        Task { await PortsService.kill(pid: process.pid, force: force); dismiss() }
     }
 }

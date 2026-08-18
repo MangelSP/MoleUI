@@ -2,9 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<!-- App Sandbox intentionally disabled: MoleUI must spawn the `mo` binary and
-	     read arbitrary paths for disk analysis. Full Disk Access is granted by the
-	     user in System Settings, not via an entitlement. -->
 	<key>com.apple.security.app-sandbox</key>
 	<false/>
 	<key>com.apple.security.automation.apple-events</key>

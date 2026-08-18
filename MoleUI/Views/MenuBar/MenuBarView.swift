@@ -10,10 +10,10 @@ struct MenuBarView: View {
             if let s = status.status {
                 HStack(spacing: 14) {
                     RingGauge(value: Double(s.healthScore) / 100, label: "\(s.healthScore)",
-                              tint: healthTint(s.healthScore))
+                              tint: Theme.health(s.healthScore))
                         .frame(width: 56, height: 56)
                     VStack(alignment: .leading, spacing: 2) {
-                        Text("Health \(s.healthScore)").font(.headline)
+                        Text("Health \(s.healthScore)").font(.display(16, .semibold))
                         Text(s.healthScoreMsg).font(.caption).foregroundStyle(.secondary)
                             .lineLimit(2).fixedSize(horizontal: false, vertical: true)
                     }
@@ -60,11 +60,4 @@ struct MenuBarView: View {
         .contentShape(Rectangle())
     }
 
-    private func healthTint(_ score: Int) -> Color {
-        switch score {
-        case 80...: return .green
-        case 50..<80: return .yellow
-        default: return .red
-        }
-    }
 }

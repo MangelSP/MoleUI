@@ -13,6 +13,8 @@ struct PortsView: View {
             Divider()
             content
         }
+        .background(Theme.bg)
+        .scrollContentBackground(.hidden)
         .navigationTitle("Local Ports")
         .task { await vm.refresh(); startTicker() }
         .onDisappear { ticker?.cancel() }

@@ -11,6 +11,8 @@ struct AnalyzeView: View {
             Divider()
             content
         }
+        .background(Theme.bg)
+        .scrollContentBackground(.hidden)
         .navigationTitle("Disk Analyzer")
         .task { if vm.analysis == nil { await vm.analyze(nil) } }
         .confirmationDialog(

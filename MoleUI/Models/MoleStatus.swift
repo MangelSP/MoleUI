@@ -16,12 +16,32 @@ struct MoleStatus: Decodable {
     var disks: [Disk]
     var thermal: Thermal
     var network: [NetInterface]
+    var batteries: [Battery]
+    var diskIo: DiskIO
     var topProcesses: [ProcessInfo]
 
     struct Thermal: Decodable {
         var cpuTemp: Double
         var gpuTemp: Double
+        var batteryTemp: Double
         var fanSpeed: Double
+        var fanCount: Int
+        var systemPower: Double
+        var adapterPower: Double
+    }
+
+    struct Battery: Decodable {
+        var percent: Int
+        var status: String
+        var timeLeft: String
+        var health: String
+        var cycleCount: Int
+        var capacity: Int       // % of design capacity remaining
+    }
+
+    struct DiskIO: Decodable {
+        var readRate: Int64
+        var writeRate: Int64
     }
 
     struct NetInterface: Decodable, Identifiable {

@@ -11,9 +11,10 @@ struct RootView: View {
             NavigationSplitView {
                 List(AppSection.allCases, selection: $selection) { section in
                     Label(section.rawValue, systemImage: section.icon)
+                        .font(.display(13, .medium))
                         .tag(section)
                 }
-                .navigationSplitViewColumnWidth(min: 180, ideal: 200)
+                .navigationSplitViewColumnWidth(min: 190, ideal: 205)
                 .listStyle(.sidebar)
             } detail: {
                 switch selection {
@@ -26,6 +27,7 @@ struct RootView: View {
                 case .about: AboutView()
                 }
             }
+            .tint(Theme.emerald)
         }
     }
 }

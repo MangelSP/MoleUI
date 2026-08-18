@@ -14,6 +14,8 @@ struct NetworkView: View {
             header
             content
         }
+        .background(Theme.bg)
+        .scrollContentBackground(.hidden)
         .navigationTitle("Network")
         .task { await vm.refresh(); startTicker() }
         .onDisappear { ticker?.cancel() }
