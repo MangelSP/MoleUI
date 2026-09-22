@@ -43,6 +43,17 @@ struct MaintenanceView: View {
                     ))
                     .toggleStyle(.checkbox).controlSize(.small)
                 }
+                if vm.selected == .clean {
+                    Button { vm.pickExternal() } label: {
+                        Label(vm.externalPath.map { ($0 as NSString).lastPathComponent } ?? "External volume…",
+                              systemImage: "externaldrive")
+                    }
+                    .controlSize(.small)
+                    if vm.externalPath != nil {
+                        Button { vm.externalPath = nil } label: { Image(systemName: "xmark.circle.fill") }
+                            .buttonStyle(.borderless).foregroundStyle(.secondary).help("Clear external volume")
+                    }
+                }
                 Spacer()
                 Text(vm.commandLine).font(.monoLabel(11)).foregroundStyle(.secondary)
             }

@@ -1,4 +1,5 @@
 import SwiftUI
+import AppKit
 
 @MainActor
 final class MaintenanceViewModel: ObservableObject {
@@ -32,8 +33,10 @@ final class MaintenanceViewModel: ObservableObject {
         }
     }
 
-    @Published var selected: Command = .clean { didSet { enabledFlags = [] } }
+    @Published var selected: Command = .clean { didSet { enabledFlags = []; externalPath = nil } }
     @Published var enabledFlags: Set<String> = []
+    /// `mo clean --external PATH`: a mounted volume to strip OS metadata from.
+    @Published var externalPath: String?
     @Published var preview = ""
     @Published var isLoading = false
     @Published var errorText: String?
@@ -42,7 +45,25 @@ final class MaintenanceViewModel: ObservableObject {
     @Published var running: (executable: String, args: [String])?
     @Published var exitCode: Int32?
 
-    var commandLine: String { (["mo", selected.rawValue] + enabledFlags.sorted()).joined(separator: " ") }
+    var args: [String] {
+        var a = [selected.rawValue] + enabledFlags.sorted()
+        if selected == .clean, let externalPath { a += ["--external", externalPath] }
+        return a
+    }
+    var commandLine: String {
+        (["mo"] + args.map { $0.contains(" ") ? "\"\($0)\"" : $0 }).joined(separator: " ")
+    }
+
+    /// NSOpenPanel limited to directories, starting at /Volumes.
+    func pickExternal() {
+        let panel = NSOpenPanel()
+        panel.canChooseDirectories = true
+        panel.canChooseFiles = false
+        panel.directoryURL = URL(fileURLWithPath: "/Volumes")
+        panel.prompt = "Use volume"
+        panel.message = "Choose the external volume to clean"
+        if panel.runModal() == .OK { externalPath = panel.url?.path }
+    }
 
     func loadPreview() async {
         isLoading = true
@@ -62,7 +83,7 @@ final class MaintenanceViewModel: ObservableObject {
             errorText = "mo not found"; return
         }
         exitCode = nil
-        running = (mo, [selected.rawValue] + enabledFlags.sorted())
+        running = (mo, args)
     }
 
     func finish() {
