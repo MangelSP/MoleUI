@@ -5,6 +5,8 @@ struct AboutView: View {
 
     @State private var installPath = "…"
     @State private var snapshotState: SnapshotState = .idle
+    @State private var touchIDEnabled: Bool?           // nil = unknown
+    @State private var touchIDAction: String?          // "enable" | "disable" → sheet
     enum SnapshotState { case idle, working, saved, failed }
 
     // Mole (upstream)
@@ -111,8 +113,29 @@ struct AboutView: View {
                 }
                 Text("Updates run in Terminal via `mo update` — use this if Mole starts erroring.")
                     .font(.caption).foregroundStyle(.secondary)
+                Divider()
+                HStack {
+                    Label("Touch ID for sudo", systemImage: "touchid")
+                    Spacer()
+                    if let on = touchIDEnabled {
+                        Text(on ? "Enabled" : "Off").font(.caption).foregroundStyle(on ? Theme.emerald : .secondary)
+                        Button(on ? "Disable" : "Enable") { touchIDAction = on ? "disable" : "enable" }
+                    } else { ProgressView().controlSize(.small) }
+                }
+                Text("Lets Clean / Optimize / Uninstall authenticate with your fingerprint instead of typing a password in the terminal.")
+                    .font(.caption).foregroundStyle(.secondary)
             }
         }
+        .task { await refreshTouchID() }
+        .sheet(item: Binding(get: { touchIDAction.map { Str(v: $0) } }, set: { touchIDAction = $0?.v })) { a in
+            TerminalSheet(title: "Touch ID", args: ["touchid", a.v]) { _ in Task { await refreshTouchID() } }
+        }
+    }
+
+    private struct Str: Identifiable { let v: String; var id: String { v } }
+
+    private func refreshTouchID() async {
+        touchIDEnabled = await MoleService.shared.touchIDEnabled()
     }
 
     private var snapshot: some View {

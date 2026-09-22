@@ -41,3 +41,42 @@ struct EmbeddedTerminal: NSViewRepresentable {
         }
     }
 }
+
+/// Modal sheet: run `mo <args>` in an embedded terminal, report exit, dismiss.
+struct TerminalSheet: View {
+    var title: String
+    var args: [String]
+    var onDone: (Int32?) -> Void = { _ in }
+    @Environment(\.dismiss) private var dismiss
+    @State private var mo: String?
+    @State private var exitCode: Int32?
+
+    var body: some View {
+        VStack(spacing: 0) {
+            HStack(spacing: 10) {
+                Image(systemName: "terminal").foregroundStyle(Theme.emerald)
+                Text(title).font(.headline)
+                Text((["mo"] + args).joined(separator: " ")).font(.monoLabel(11)).foregroundStyle(.secondary)
+                if let code = exitCode {
+                    if code == 0 { PixelCat(mood: .eat, scale: 0.6) }
+                    Label(code == 0 ? "Finished" : "Exited with \(code)",
+                          systemImage: code == 0 ? "checkmark.circle.fill" : "xmark.circle.fill")
+                        .foregroundStyle(code == 0 ? Theme.emerald : .red).font(.callout)
+                } else { ProgressView().controlSize(.small) }
+                Spacer()
+                Button(exitCode == nil ? "Abort" : "Done") { onDone(exitCode); dismiss() }
+                    .buttonStyle(.borderedProminent).tint(exitCode == nil ? .red : Theme.emerald)
+            }
+            .padding(12)
+            Divider()
+            if let mo {
+                EmbeddedTerminal(executable: mo, args: args) { exitCode = $0 }
+            } else {
+                PixelCat(mood: .box).frame(maxWidth: .infinity, maxHeight: .infinity)
+            }
+        }
+        .frame(width: 760, height: 520)
+        .background(Theme.bg)
+        .task { mo = await MoleService.shared.resolvePath() }
+    }
+}

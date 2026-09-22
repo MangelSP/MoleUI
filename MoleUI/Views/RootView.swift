@@ -26,6 +26,8 @@ struct RootView: View {
                 case .processes: ProcessesView()
                 case .network: NetworkView()
                 case .maintenance: MaintenanceView()
+                case .apps: AppsView()
+                case .history: HistoryView()
                 case .automation: AutomationView()
                 case .about: AboutView()
                 }

@@ -21,6 +21,8 @@ enum AppSection: String, CaseIterable, Identifiable {
     case processes = "Processes"
     case network = "Network"
     case maintenance = "Maintenance"
+    case apps = "Apps"
+    case history = "History"
     case automation = "Automation"
     case about = "About"
 
@@ -33,6 +35,8 @@ enum AppSection: String, CaseIterable, Identifiable {
         case .processes: return "memorychip"
         case .network: return "antenna.radiowaves.left.and.right"
         case .maintenance: return "sparkles"
+        case .apps: return "square.grid.2x2"
+        case .history: return "clock.arrow.circlepath"
         case .automation: return "bell.and.waves.left.and.right"
         case .about: return "info.circle"
         }

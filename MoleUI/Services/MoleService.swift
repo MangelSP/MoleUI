@@ -66,6 +66,17 @@ actor MoleService {
         return ANSISanitizer.strip(text)
     }
 
+    struct HistoryEnvelope: Decodable { var sessions: [MoleSession]; var logs: [String: String] }
+    func history(limit: Int = 200) async throws -> HistoryEnvelope {
+        try decode(HistoryEnvelope.self, from: try await mo(["history", "--json", "--limit", String(limit)]))
+    }
+
+    /// `mo touchid status` prints a sentence; "not configured" means off.
+    func touchIDEnabled() async -> Bool {
+        guard let r = try? await mo(["touchid", "status"]) else { return false }
+        return !(r.stdout + r.stderr).lowercased().contains("not")
+    }
+
     func version() async -> String {
         guard let r = try? await mo(["--version"]) else { return "unknown" }
         return r.stdout.trimmingCharacters(in: .whitespacesAndNewlines)

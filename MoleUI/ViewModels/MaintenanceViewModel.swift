@@ -5,7 +5,7 @@ import AppKit
 final class MaintenanceViewModel: ObservableObject {
 
     enum Command: String, CaseIterable, Identifiable {
-        case clean, purge, optimize
+        case clean, purge, optimize, installer
         var id: String { rawValue }
         var title: String { rawValue.capitalized }
         var subtitle: String {
@@ -13,6 +13,7 @@ final class MaintenanceViewModel: ObservableObject {
             case .clean: return "Deep system cleanup + leftover app files"
             case .purge: return "Remove project build artifacts (node_modules, target, dist…)"
             case .optimize: return "Refresh caches & services"
+            case .installer: return "Find and remove old installers (.dmg, .pkg, .iso, .xip, .zip)"
             }
         }
         var icon: String {
@@ -20,6 +21,7 @@ final class MaintenanceViewModel: ObservableObject {
             case .clean: return "trash"
             case .purge: return "shippingbox"
             case .optimize: return "bolt"
+            case .installer: return "arrow.down.doc"
             }
         }
         /// Boolean flags each subcommand accepts (from `mo <cmd> --help`).
@@ -29,6 +31,7 @@ final class MaintenanceViewModel: ObservableObject {
             case .purge: return [("--yes", "No confirmation"), ("--include-empty", "Include empty dirs"),
                                  ("--paths", "Edit scan paths"), ("--debug", "Debug logs")]
             case .optimize: return [("--debug", "Debug logs"), ("--whitelist", "Manage whitelist")]
+            case .installer: return [("--debug", "Debug logs")]
             }
         }
     }
