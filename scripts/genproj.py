@@ -28,6 +28,10 @@ TARGET       = uid("target")
 PRODUCT_REF  = uid("productRef")          # MoleUI.app
 SOURCES_PH   = uid("sourcesPhase")
 FRAMEWORKS_PH= uid("frameworksPhase")
+# SwiftTerm (embedded terminal). Pinned: 1.11+ needs the Metal toolchain and a build plugin.
+SWIFTTERM_PKG  = "5A11AA0000000000000000A1"
+SWIFTTERM_PROD = "5A11AA0000000000000000A2"
+SWIFTTERM_BF   = "5A11AA0000000000000000A3"
 RESOURCES_PH = uid("resourcesPhase")
 PROJ_CFG_LIST= uid("projCfgList")
 TARG_CFG_LIST= uid("targCfgList")
@@ -88,7 +92,7 @@ COMMON_BUILD = """				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/../Frameworks");
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.moleui.app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -105,6 +109,7 @@ pbx = f"""// !$*UTF8*$!
 
 /* Begin PBXBuildFile section */
 {build_file_lines()}
+		{SWIFTTERM_BF} /* SwiftTerm in Frameworks */ = {{isa = PBXBuildFile; productRef = {SWIFTTERM_PROD} /* SwiftTerm */; }};
 {f'		{ASSETS_BUILD} /* Assets.xcassets in Resources */ = {{isa = PBXBuildFile; fileRef = {ASSETS_REF} /* Assets.xcassets */; }};' if has_assets else ''}
 /* End PBXBuildFile section */
 
@@ -119,6 +124,7 @@ pbx = f"""// !$*UTF8*$!
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				{SWIFTTERM_BF} /* SwiftTerm in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		}};
@@ -165,6 +171,9 @@ pbx = f"""// !$*UTF8*$!
 			dependencies = (
 			);
 			name = "MoleUI";
+			packageProductDependencies = (
+				{SWIFTTERM_PROD} /* SwiftTerm */,
+			);
 			productName = "MoleUI";
 			productReference = {PRODUCT_REF} /* MoleUI.app */;
 			productType = "com.apple.product-type.application";
@@ -193,6 +202,9 @@ pbx = f"""// !$*UTF8*$!
 				Base,
 			);
 			mainGroup = {MAIN_GROUP};
+			packageReferences = (
+				{SWIFTTERM_PKG} /* XCRemoteSwiftPackageReference "SwiftTerm" */,
+			);
 			productRefGroup = {PRODUCTS_GRP} /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -290,6 +302,25 @@ pbx = f"""// !$*UTF8*$!
 			defaultConfigurationName = Release;
 		}};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		{SWIFTTERM_PKG} /* XCRemoteSwiftPackageReference "SwiftTerm" */ = {{
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/migueldeicaza/SwiftTerm";
+			requirement = {{
+				kind = exactVersion;
+				version = 1.10.0;
+			}};
+		}};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		{SWIFTTERM_PROD} /* SwiftTerm */ = {{
+			isa = XCSwiftPackageProductDependency;
+			package = {SWIFTTERM_PKG} /* XCRemoteSwiftPackageReference "SwiftTerm" */;
+			productName = SwiftTerm;
+		}};
+/* End XCSwiftPackageProductDependency section */
 	}};
 	rootObject = {PROJECT} /* Project object */;
 }}

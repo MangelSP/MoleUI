@@ -32,10 +32,21 @@ affiliated with or endorsed by the Mole project.
   `cleanable` badges and move-to-Trash.
 - **Ports** — every listening local port (dev servers included), with per-process detail
   and a kill action. Common dev ports are highlighted.
+- **Processes** — every process sorted by resident memory, grouped by `.app` bundle
+  (expandable), with search, pin-to-top, per-process detail, restart, and Stop / Force Kill.
+  System processes are flagged 🔒; killing one owned by root asks for your admin password
+  through macOS's own dialog. CPU history charts (total + per core) sit on top.
 - **Network** — which apps are consuming bandwidth *right now* (live rate via `nettop`),
   their active connections (`lsof`), and a kill action.
-- **Maintenance** — dry-run previews for `clean` / `purge` / `optimize`; the real
-  interactive commands are handed off to Terminal (they own their own TUI).
+- **Maintenance** — `clean` / `purge` / `optimize` / `installer` with a dry-run preview,
+  per-command options (`--yes`, `--include-empty`, `--external <volume>`, …) and a real
+  **embedded terminal** so Mole's interactive TUI and sudo prompt run inside the app.
+  Terminal.app hand-off is still there as a fallback.
+- **Apps** — installed applications with real on-disk sizes; select one or many and run
+  `mo uninstall` (leftovers included) in the embedded terminal.
+- **History** — every Mole session (`mo history --json`): space freed, items, removed /
+  skipped / failed, duration, with a shortcut to the log.
+- **Touch ID for sudo** — enable / disable `mo touchid` from the About screen.
 - **Automation**
   - **Threshold notifications** — native alerts when CPU / RAM / disk / temperature cross
     user-configurable limits (edge-triggered, with a cooldown).
@@ -45,6 +56,23 @@ affiliated with or endorsed by the Mole project.
 - **Menu-bar monitor** — a live gauge in the menu bar with a popover (health, CPU, RAM,
   disk) and quick actions, so monitoring keeps running in the background.
 - **JSON snapshot** — export a full audit snapshot (system status + listening ports).
+- **Pixel cat mascot** — a little cat in the sidebar and menu bar that naps when the
+  system is quiet, sits when it's busy and hisses when CPU / RAM / disk are pegged. Click
+  it to pet it. Three skins; can be turned off in Automation.
+
+## Screenshots
+
+| Processes | Maintenance (embedded terminal) |
+|---|---|
+| ![Processes](docs/screenshots/processes.png) | ![Maintenance](docs/screenshots/maintenance.png) |
+
+| Apps (uninstall) | History |
+|---|---|
+| ![Apps](docs/screenshots/apps.png) | ![History](docs/screenshots/history.png) |
+
+| Automation |
+|---|
+| ![Automation](docs/screenshots/automation.png) |
 
 ## Requirements
 
@@ -81,11 +109,15 @@ Modular **MVVM** with Swift Concurrency:
 - `Services/ProcessRunner` — the single `async` `Process` primitive (deadlock-safe pipe draining).
 - `Services/MoleService` — typed wrappers over `mo status/analyze --json` (snake_case decoding).
 - `Services/PortsService`, `NetworkService`, `CleanupService` — native `lsof` / `ps` / `nettop` / `find`.
-- `Services/TerminalHandoff` — runs Mole's interactive TUIs in Terminal.app (they can't be driven headlessly).
+- `Views/Shared/EmbeddedTerminal` — [SwiftTerm](https://github.com/migueldeicaza/SwiftTerm) PTY that runs
+  Mole's interactive TUIs (`clean`, `purge`, `optimize`, `uninstall`, `touchid`) inside the app.
+  Pinned to 1.10.0 — later versions need the Metal toolchain and a build plugin.
+- `Services/TerminalHandoff` — Terminal.app fallback for the same commands.
+- `Views/Shared/PixelCat` — the sprite-strip mascot (`TimelineView` + `interpolation(.none)`, no animation library).
 - One shared status poller feeds both the window and the menu-bar monitor.
 
-The Xcode project file is **generated** from the source tree — after adding or removing
-files, regenerate it:
+The Xcode project file is **generated** from the source tree (including the SwiftTerm
+package reference) — after adding or removing files, regenerate it:
 
 ```bash
 python3 scripts/genproj.py     # regenerates MoleUI.xcodeproj/project.pbxproj

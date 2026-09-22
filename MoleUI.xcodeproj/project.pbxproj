@@ -38,23 +38,23 @@
 		E5702256E08F2A2CCF8F2093 /* PortsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8F2BEA1128FB318F7E8BF2 /* PortsViewModel.swift */; };
 		3BD294920D83ECB1C3A9A711 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B627BCBFEF880CA2DC470C9 /* AboutView.swift */; };
 		B5B97A417AC0FD7B79706BD0 /* AnalyzeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4060CAF347F804FC70889B2A /* AnalyzeView.swift */; };
+		580B58C62E85C5B3AF2DE95C /* AppsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217D89797C87A82F246C8F2C /* AppsView.swift */; };
 		80ECFC401D69FAB4C7916E8E /* AutomationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA567DCECCB272C2B55444B /* AutomationView.swift */; };
 		24562D47A5F3951CD0B7AFDA /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4260103864233DB8D7C38A /* DashboardView.swift */; };
+		45FF4855500BC41E98238890 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 301B78D00A0AD8B447C4FE75 /* HistoryView.swift */; };
 		D4BCFE9752364B3859F6F0F5 /* MaintenanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 320D89D8428A287586BF8115 /* MaintenanceView.swift */; };
 		51909084B7EC62CE0CDB475E /* MenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 306396D966A4BD40FB2E85A4 /* MenuBarView.swift */; };
 		AB2B276C632AFFF0C690981A /* NetworkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4089F2E477B45E23EDCAE9 /* NetworkView.swift */; };
 		4702BE274A3041AB2629BB3B /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC6C6BC92AE8836D594BFD1 /* OnboardingView.swift */; };
 		DC314FD5F649E1974A36309F /* PortsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8B8F6027DE173CF62D88A9 /* PortsView.swift */; };
-		A1B2C3D4E5F60718293A4B5C /* ProcessesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D7E8F90A1B2C3D4E5F6071 /* ProcessesView.swift */; };
+		7E2BEC47CBABD888E37C3A78 /* ProcessesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8BE3559BCD188DD782130F /* ProcessesView.swift */; };
 		FCDE762B2FA709BDE5DD7B78 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FA04FC22E5ACCA871ACA60 /* RootView.swift */; };
 		7391F98E6681C7598D9A1375 /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2493CFC41B88079CEA99820 /* Components.swift */; };
 		0BB0893012B306775695F7B2 /* DetailSheets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B25C2BD12D75B1E1BD00D9 /* DetailSheets.swift */; };
-		630079499D908838C6A12464 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCB8953AE57039F8C975994A /* Assets.xcassets */; };
+		434E21807D8AD908EB3A4C82 /* EmbeddedTerminal.swift in Sources */ = {isa = PBXBuildFile; fileRef = F61457471258574362E9DFE7 /* EmbeddedTerminal.swift */; };
+		934F1C96EC3B37C56EDED3BB /* PixelCat.swift in Sources */ = {isa = PBXBuildFile; fileRef = E973D63DB278338C2CB08066 /* PixelCat.swift */; };
 		5A11AA0000000000000000A3 /* SwiftTerm in Frameworks */ = {isa = PBXBuildFile; productRef = 5A11AA0000000000000000A2 /* SwiftTerm */; };
-		5A11AA0000000000000000B1 /* EmbeddedTerminal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A11AA0000000000000000B2 /* EmbeddedTerminal.swift */; };
-		5A11AA0000000000000000C1 /* PixelCat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A11AA0000000000000000C2 /* PixelCat.swift */; };
-		5A11AA0000000000000000D1 /* AppsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A11AA0000000000000000D2 /* AppsView.swift */; };
-		5A11AA0000000000000000D3 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A11AA0000000000000000D4 /* HistoryView.swift */; };
+		630079499D908838C6A12464 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCB8953AE57039F8C975994A /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -90,21 +90,21 @@
 		2D8F2BEA1128FB318F7E8BF2 /* PortsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "PortsViewModel.swift"; path = "ViewModels/PortsViewModel.swift"; sourceTree = "<group>"; };
 		2B627BCBFEF880CA2DC470C9 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "AboutView.swift"; path = "Views/About/AboutView.swift"; sourceTree = "<group>"; };
 		4060CAF347F804FC70889B2A /* AnalyzeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "AnalyzeView.swift"; path = "Views/Analyze/AnalyzeView.swift"; sourceTree = "<group>"; };
+		217D89797C87A82F246C8F2C /* AppsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "AppsView.swift"; path = "Views/Apps/AppsView.swift"; sourceTree = "<group>"; };
 		BBA567DCECCB272C2B55444B /* AutomationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "AutomationView.swift"; path = "Views/Automation/AutomationView.swift"; sourceTree = "<group>"; };
 		DF4260103864233DB8D7C38A /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DashboardView.swift"; path = "Views/Dashboard/DashboardView.swift"; sourceTree = "<group>"; };
+		301B78D00A0AD8B447C4FE75 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "HistoryView.swift"; path = "Views/History/HistoryView.swift"; sourceTree = "<group>"; };
 		320D89D8428A287586BF8115 /* MaintenanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MaintenanceView.swift"; path = "Views/Maintenance/MaintenanceView.swift"; sourceTree = "<group>"; };
 		306396D966A4BD40FB2E85A4 /* MenuBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MenuBarView.swift"; path = "Views/MenuBar/MenuBarView.swift"; sourceTree = "<group>"; };
 		6A4089F2E477B45E23EDCAE9 /* NetworkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "NetworkView.swift"; path = "Views/Network/NetworkView.swift"; sourceTree = "<group>"; };
 		EEC6C6BC92AE8836D594BFD1 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "OnboardingView.swift"; path = "Views/Onboarding/OnboardingView.swift"; sourceTree = "<group>"; };
 		AF8B8F6027DE173CF62D88A9 /* PortsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "PortsView.swift"; path = "Views/Ports/PortsView.swift"; sourceTree = "<group>"; };
-		C6D7E8F90A1B2C3D4E5F6071 /* ProcessesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ProcessesView.swift"; path = "Views/Processes/ProcessesView.swift"; sourceTree = "<group>"; };
+		7B8BE3559BCD188DD782130F /* ProcessesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ProcessesView.swift"; path = "Views/Processes/ProcessesView.swift"; sourceTree = "<group>"; };
 		91FA04FC22E5ACCA871ACA60 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "RootView.swift"; path = "Views/RootView.swift"; sourceTree = "<group>"; };
 		D2493CFC41B88079CEA99820 /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Components.swift"; path = "Views/Shared/Components.swift"; sourceTree = "<group>"; };
-		5A11AA0000000000000000B2 /* EmbeddedTerminal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "EmbeddedTerminal.swift"; path = "Views/Shared/EmbeddedTerminal.swift"; sourceTree = "<group>"; };
-		5A11AA0000000000000000C2 /* PixelCat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "PixelCat.swift"; path = "Views/Shared/PixelCat.swift"; sourceTree = "<group>"; };
-		5A11AA0000000000000000D2 /* AppsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "AppsView.swift"; path = "Views/Apps/AppsView.swift"; sourceTree = "<group>"; };
-		5A11AA0000000000000000D4 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "HistoryView.swift"; path = "Views/History/HistoryView.swift"; sourceTree = "<group>"; };
 		57B25C2BD12D75B1E1BD00D9 /* DetailSheets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DetailSheets.swift"; path = "Views/Shared/DetailSheets.swift"; sourceTree = "<group>"; };
+		F61457471258574362E9DFE7 /* EmbeddedTerminal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "EmbeddedTerminal.swift"; path = "Views/Shared/EmbeddedTerminal.swift"; sourceTree = "<group>"; };
+		E973D63DB278338C2CB08066 /* PixelCat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "PixelCat.swift"; path = "Views/Shared/PixelCat.swift"; sourceTree = "<group>"; };
 		FCB8953AE57039F8C975994A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -162,21 +162,21 @@
 				2D8F2BEA1128FB318F7E8BF2 /* PortsViewModel.swift */,
 				2B627BCBFEF880CA2DC470C9 /* AboutView.swift */,
 				4060CAF347F804FC70889B2A /* AnalyzeView.swift */,
+				217D89797C87A82F246C8F2C /* AppsView.swift */,
 				BBA567DCECCB272C2B55444B /* AutomationView.swift */,
 				DF4260103864233DB8D7C38A /* DashboardView.swift */,
+				301B78D00A0AD8B447C4FE75 /* HistoryView.swift */,
 				320D89D8428A287586BF8115 /* MaintenanceView.swift */,
 				306396D966A4BD40FB2E85A4 /* MenuBarView.swift */,
 				6A4089F2E477B45E23EDCAE9 /* NetworkView.swift */,
 				EEC6C6BC92AE8836D594BFD1 /* OnboardingView.swift */,
 				AF8B8F6027DE173CF62D88A9 /* PortsView.swift */,
-				C6D7E8F90A1B2C3D4E5F6071 /* ProcessesView.swift */,
+				7B8BE3559BCD188DD782130F /* ProcessesView.swift */,
 				91FA04FC22E5ACCA871ACA60 /* RootView.swift */,
 				D2493CFC41B88079CEA99820 /* Components.swift */,
 				57B25C2BD12D75B1E1BD00D9 /* DetailSheets.swift */,
-				5A11AA0000000000000000D4 /* HistoryView.swift */,
-				5A11AA0000000000000000D2 /* AppsView.swift */,
-				5A11AA0000000000000000C2 /* PixelCat.swift */,
-				5A11AA0000000000000000B2 /* EmbeddedTerminal.swift */,
+				F61457471258574362E9DFE7 /* EmbeddedTerminal.swift */,
+				E973D63DB278338C2CB08066 /* PixelCat.swift */,
 				FCB8953AE57039F8C975994A /* Assets.xcassets */,
 			);
 			path = "MoleUI";
@@ -296,21 +296,21 @@
 				E5702256E08F2A2CCF8F2093 /* PortsViewModel.swift in Sources */,
 				3BD294920D83ECB1C3A9A711 /* AboutView.swift in Sources */,
 				B5B97A417AC0FD7B79706BD0 /* AnalyzeView.swift in Sources */,
+				580B58C62E85C5B3AF2DE95C /* AppsView.swift in Sources */,
 				80ECFC401D69FAB4C7916E8E /* AutomationView.swift in Sources */,
 				24562D47A5F3951CD0B7AFDA /* DashboardView.swift in Sources */,
+				45FF4855500BC41E98238890 /* HistoryView.swift in Sources */,
 				D4BCFE9752364B3859F6F0F5 /* MaintenanceView.swift in Sources */,
 				51909084B7EC62CE0CDB475E /* MenuBarView.swift in Sources */,
 				AB2B276C632AFFF0C690981A /* NetworkView.swift in Sources */,
 				4702BE274A3041AB2629BB3B /* OnboardingView.swift in Sources */,
 				DC314FD5F649E1974A36309F /* PortsView.swift in Sources */,
-				A1B2C3D4E5F60718293A4B5C /* ProcessesView.swift in Sources */,
+				7E2BEC47CBABD888E37C3A78 /* ProcessesView.swift in Sources */,
 				FCDE762B2FA709BDE5DD7B78 /* RootView.swift in Sources */,
 				7391F98E6681C7598D9A1375 /* Components.swift in Sources */,
 				0BB0893012B306775695F7B2 /* DetailSheets.swift in Sources */,
-				5A11AA0000000000000000D3 /* HistoryView.swift in Sources */,
-				5A11AA0000000000000000D1 /* AppsView.swift in Sources */,
-				5A11AA0000000000000000C1 /* PixelCat.swift in Sources */,
-				5A11AA0000000000000000B1 /* EmbeddedTerminal.swift in Sources */,
+				434E21807D8AD908EB3A4C82 /* EmbeddedTerminal.swift in Sources */,
+				934F1C96EC3B37C56EDED3BB /* PixelCat.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
