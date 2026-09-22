@@ -98,7 +98,7 @@ affiliated with or endorsed by the Mole project.
 
 Grab **MoleUI-x.y.z.zip** from the [latest release](https://github.com/MangelSP/MoleUI/releases/latest),
 unzip, and move **MoleUI.app** to Applications. Builds are not yet notarized — on first launch
-right-click the app → **Open**.
+right-click the app → **Open**. See [CHANGELOG.md](CHANGELOG.md) for what changed in each version.
 
 ## Requirements
 
