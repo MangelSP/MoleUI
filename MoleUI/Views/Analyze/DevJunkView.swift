@@ -15,23 +15,20 @@ struct DevJunkView: View {
         var path: String? = nil           // nil for grouping nodes
         var children: [Node]? = nil
         var leaves: [Node] { children.map { $0.flatMap(\.leaves) } ?? (path == nil ? [] : [self]) }
+        var groupIDs: [String] { children.map { [id] + $0.flatMap(\.groupIDs) } ?? [] }
     }
 
     @State private var nodes: [Node] = []
     @State private var selection: Set<String> = []
+    @State private var expanded: Set<String> = []
     @State private var isLoading = true
     @State private var phase = "Measuring caches…"
     @State private var pendingTrash: [Node]?
     @State private var toolRun: (label: String, exe: String, args: [String])?
     @State private var failed: [String] = []
 
-    private var selectedLeaves: [Node] {
-        var seen = Set<String>(); var out: [Node] = []
-        for n in nodes.flatMap({ [$0] + ($0.children ?? []).flatMap { [$0] + ($0.children ?? []) } }) where selection.contains(n.id) {
-            for leaf in n.leaves where seen.insert(leaf.id).inserted { out.append(leaf) }
-        }
-        return out
-    }
+    private var allLeaves: [Node] { nodes.flatMap(\.leaves) }
+    private var selectedLeaves: [Node] { allLeaves.filter { selection.contains($0.id) } }
     private var total: Int64 { nodes.reduce(0) { $0 + $1.size } }
 
     var body: some View {
@@ -42,35 +39,13 @@ struct DevJunkView: View {
                 VStack(spacing: 10) { PixelCat(mood: .walk); Text(phase).foregroundStyle(.secondary) }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else {
-                Table(nodes, children: \.children, selection: $selection) {
-                    TableColumn("Name") { n in
-                        HStack(spacing: 6) {
-                            Image(systemName: n.children != nil ? "folder.fill" : n.path.map { $0.hasSuffix("/") ? "folder" : "doc" } ?? "folder")
-                                .foregroundStyle(n.children != nil ? Theme.emerald : .secondary).font(.caption)
-                            Text(n.name).bold(n.children != nil)
-                            if n.risk == .review, n.path != nil {
-                                Badge("review", tint: Theme.amber)
-                            }
-                        }
-                    }
-                    TableColumn("Size") { n in
-                        Text(Bytes.string(n.size)).monospacedDigit().bold(n.children != nil)
-                            .foregroundStyle(n.size > 1_000_000_000 ? Theme.amber : .primary)
-                    }.width(90)
-                    TableColumn("Note") { n in
-                        Text(n.note.isEmpty ? (n.path ?? "") : n.note).font(.caption).foregroundStyle(.secondary).lineLimit(1)
-                            .help(n.path ?? "")
-                    }
-                    TableColumn("") { n in
-                        if n.path != nil {
-                            HStack(spacing: 8) {
-                                Button { reveal(n) } label: { Image(systemName: "folder") }.buttonStyle(.borderless).help("Reveal in Finder")
-                                Button(role: .destructive) { pendingTrash = [n] } label: { Image(systemName: "trash") }.buttonStyle(.borderless)
-                            }
-                        }
-                    }.width(60)
+                // ponytail: List + DisclosureGroup instead of Table(children:) — Table can't expand by default.
+                List {
+                    ForEach(nodes) { NodeRow(node: $0, depth: 0, expanded: $expanded, selection: $selection,
+                                             onTrash: { pendingTrash = $0.leaves }, onReveal: reveal) }
                 }
-                .contextMenu(forSelectionType: String.self) { _ in
+                .listStyle(.inset)
+                .contextMenu {
                     Button("Move selected to Trash…") { pendingTrash = selectedLeaves }.disabled(selectedLeaves.isEmpty)
                 }
                 Divider()
@@ -100,6 +75,13 @@ struct DevJunkView: View {
         HStack(spacing: 12) {
             Text("\(Bytes.string(total)) reclaimable").foregroundStyle(.secondary)
             if !failed.isEmpty { Text("\(failed.count) couldn't be trashed").font(.caption).foregroundStyle(.red) }
+            if !isLoading {
+                Button("Select all safe") { selection = Set(allLeaves.filter { $0.risk == .safe }.map(\.id)) }
+                    .controlSize(.small).help("Everything without the *review* badge")
+            }
+            if !selection.isEmpty {
+                Button("Clear") { selection = [] }.controlSize(.small)
+            }
             Spacer()
             if !selection.isEmpty {
                 Button(role: .destructive) { pendingTrash = selectedLeaves } label: {
@@ -161,16 +143,69 @@ struct DevJunkView: View {
                  size: projNodes.reduce(0) { $0 + $1.size },
                  note: projNodes.isEmpty ? "Nothing found — add scan folders in Automation" : "", children: projNodes),
         ]
+        expanded = Set(nodes.flatMap { $0.groupIDs })
         isLoading = false
     }
 
     private func trash(_ items: [Node]) {
-        failed = DevJunkService.trash(items.compactMap(\.path))
+        failed = DevJunkService.trash(items.flatMap(\.leaves).compactMap(\.path))
         Task { await scan() }
     }
 
     private func reveal(_ n: Node) {
         guard let p = n.path else { return }
         NSWorkspace.shared.activateFileViewerSelecting([URL(fileURLWithPath: p)])
+    }
+}
+
+
+/// One tree row: disclosure for groups, checkbox for selection, size, note, actions.
+private struct NodeRow: View {
+    let node: DevJunkView.Node
+    let depth: Int
+    @Binding var expanded: Set<String>
+    @Binding var selection: Set<String>
+    var onTrash: (DevJunkView.Node) -> Void
+    var onReveal: (DevJunkView.Node) -> Void
+
+    private var leafIDs: [String] { node.leaves.map(\.id) }
+    private var checked: Bool { !leafIDs.isEmpty && leafIDs.allSatisfy(selection.contains) }
+    private var partial: Bool { !checked && leafIDs.contains(where: selection.contains) }
+
+    var body: some View {
+        if let kids = node.children {
+            DisclosureGroup(isExpanded: Binding(get: { expanded.contains(node.id) },
+                                                set: { if $0 { expanded.insert(node.id) } else { expanded.remove(node.id) } })) {
+                ForEach(kids) { NodeRow(node: $0, depth: depth + 1, expanded: $expanded, selection: $selection, onTrash: onTrash, onReveal: onReveal) }
+            } label: { line }
+        } else {
+            line.padding(.leading, 20)
+        }
+    }
+
+    private var line: some View {
+        HStack(spacing: 8) {
+            Toggle("", isOn: Binding(get: { checked }, set: { on in
+                if on { selection.formUnion(leafIDs) } else { selection.subtract(leafIDs) }
+            }))
+            .toggleStyle(.checkbox).labelsHidden().opacity(partial ? 0.5 : 1)
+            Image(systemName: node.children != nil ? "folder.fill" : "doc")
+                .foregroundStyle(node.children != nil ? Theme.emerald : .secondary).font(.caption)
+            Text(node.name).bold(node.children != nil).lineLimit(1)
+            if node.risk == .review, node.path != nil { Badge("review", tint: Theme.amber) }
+            Text(node.note.isEmpty ? (node.path.map { ($0 as NSString).abbreviatingWithTildeInPath } ?? "") : node.note)
+                .font(.caption).foregroundStyle(.secondary).lineLimit(1).help(node.path ?? "")
+            Spacer()
+            Text(Bytes.string(node.size)).monospacedDigit().bold(node.children != nil)
+                .foregroundStyle(node.size > 1_000_000_000 ? Theme.amber : .primary).frame(width: 90, alignment: .trailing)
+            HStack(spacing: 8) {
+                if node.path != nil {
+                    Button { onReveal(node) } label: { Image(systemName: "folder") }.buttonStyle(.borderless).help("Reveal in Finder")
+                }
+                Button(role: .destructive) { onTrash(node) } label: { Image(systemName: "trash") }.buttonStyle(.borderless)
+                    .help(node.children != nil ? "Trash everything in \(node.name)" : "Move to Trash")
+            }.frame(width: 50)
+        }
+        .padding(.vertical, 2)
     }
 }
