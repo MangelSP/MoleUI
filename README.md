@@ -6,6 +6,7 @@
     <img src="https://img.shields.io/badge/platform-macOS%2014%2B-blue" alt="macOS 14+" />
     <img src="https://img.shields.io/badge/Swift-5.9%2B-orange" alt="Swift" />
     <img src="https://img.shields.io/badge/license-GPL--3.0-green" alt="GPL-3.0" />
+    <a href="https://github.com/MangelSP/MoleUI/releases/latest"><img src="https://img.shields.io/github/v/release/MangelSP/MoleUI?label=download&color=35C88A" alt="Latest release" /></a>
   </p>
   <img src="docs/screenshots/dashboard.png" width="840" alt="MoleUI dashboard" />
 </div>
@@ -92,6 +93,12 @@ affiliated with or endorsed by the Mole project.
 | Automation |
 |---|
 | ![Automation](docs/screenshots/automation.png) |
+
+## Download
+
+Grab **MoleUI-x.y.z.zip** from the [latest release](https://github.com/MangelSP/MoleUI/releases/latest),
+unzip, and move **MoleUI.app** to Applications. Builds are not yet notarized — on first launch
+right-click the app → **Open**.
 
 ## Requirements
 
