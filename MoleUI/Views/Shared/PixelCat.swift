@@ -2,7 +2,14 @@ import SwiftUI
 
 /// Pixel-art cat mascot animated from horizontal sprite strips. ponytail: TimelineView + crop,
 /// no animation framework. `mood` picks the strip; call sites map system state → mood.
+/// One switch for every cat (sidebar, loaders, room). Persisted in UserDefaults.
+enum CatSettings {
+    static let key = "catEnabled"
+    static var enabled: Bool { UserDefaults.standard.object(forKey: key) == nil || UserDefaults.standard.bool(forKey: key) }
+}
+
 struct PixelCat: View {
+    @AppStorage(CatSettings.key) private var enabled = true
     enum Mood {
         case walk, sleep, eat, alarm, box
         var sheet: (name: String, frames: Int, size: CGFloat, fps: Double) {
@@ -19,8 +26,12 @@ struct PixelCat: View {
     var scale: CGFloat = 2
 
     var body: some View {
+        if enabled { animated } else { ProgressView().controlSize(.small).frame(height: mood.sheet.size * scale) }
+    }
+
+    private var animated: some View {
         let s = mood.sheet
-        TimelineView(.periodic(from: .now, by: 1 / s.fps)) { ctx in
+        return TimelineView(.periodic(from: .now, by: 1 / s.fps)) { ctx in
             let frame = Int(ctx.date.timeIntervalSinceReferenceDate * s.fps) % s.frames
             Image(s.name)
                 .interpolation(.none)

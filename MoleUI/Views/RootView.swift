@@ -3,6 +3,7 @@ import SwiftUI
 struct RootView: View {
     @EnvironmentObject var appState: AppState
     @EnvironmentObject private var status: DashboardViewModel
+    @AppStorage(CatSettings.key) private var catEnabled = true
     @State private var selection: AppSection = .dashboard
 
     var body: some View {
@@ -17,7 +18,7 @@ struct RootView: View {
                 }
                 .navigationSplitViewColumnWidth(min: 190, ideal: 205)
                 .listStyle(.sidebar)
-                .safeAreaInset(edge: .bottom) { mascot }
+                .safeAreaInset(edge: .bottom) { if catEnabled { mascot } }
             } detail: {
                 switch selection {
                 case .dashboard: DashboardView()

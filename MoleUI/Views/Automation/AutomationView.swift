@@ -30,9 +30,17 @@ struct AutomationView: View {
 
     // MARK: Alerts
 
+    @AppStorage(CatSettings.key) private var catEnabled = true
+
     private var alerts: some View {
         VStack(alignment: .leading, spacing: 12) {
             VStack(alignment: .leading, spacing: 12) {
+                Toggle(isOn: $catEnabled) {
+                    Label("Cat mascot", systemImage: "pawprint").font(.display(15, .semibold))
+                }
+                Text("Shows the pixel cat in the sidebar, loading screens and the Dashboard's Cat Room. Off = plain spinners.")
+                    .font(.caption).foregroundStyle(.secondary)
+                Divider()
                 Toggle(isOn: $settings.alertsEnabled) {
                     Label("Threshold notifications", systemImage: "bell.badge").font(.display(15, .semibold))
                 }

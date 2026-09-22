@@ -9,6 +9,7 @@ final class DashboardViewModel: ObservableObject {
     // Rolling history for sparklines (most recent last).
     @Published var cpuHistory: [Double] = []
     @Published var coreHistory: [[Double]] = []   // one series per core
+    @Published var listeningPorts = 0             // for the cat room's yarn balls
     @Published var memHistory: [Double] = []
     @Published var netRxHistory: [Double] = []
     @Published var netTxHistory: [Double] = []
@@ -19,6 +20,7 @@ final class DashboardViewModel: ObservableObject {
             arr.append(v); if arr.count > historyCap { arr.removeFirst(arr.count - historyCap) }
         }
         push(&cpuHistory, s.cpu.usage)
+        Task { listeningPorts = await PortsService.list().count }
         if coreHistory.count != s.cpu.perCore.count { coreHistory = s.cpu.perCore.map { _ in [] } }
         for (i, v) in s.cpu.perCore.enumerated() { push(&coreHistory[i], v) }
         push(&memHistory, s.memory.usedPercent)

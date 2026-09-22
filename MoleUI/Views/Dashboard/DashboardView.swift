@@ -6,6 +6,7 @@ struct DashboardView: View {
     @State private var detailProcess: MoleStatus.ProcessInfo?
     @State private var detailIface: MoleStatus.NetInterface?
     @State private var freeingRAM = false
+    @AppStorage(CatSettings.key) private var catEnabled = true
 
     private let columns = [GridItem(.adaptive(minimum: 300), spacing: 14)]
 
@@ -24,6 +25,11 @@ struct DashboardView: View {
                         fanCard(s)
                     }
                     .padding(16)
+
+                    if catEnabled {
+                        CatRoomCard(s: s, ports: vm.listeningPorts)
+                            .padding(.horizontal, 16)
+                    }
 
                     CPUHistoryCard(cpu: s.cpu, vm: vm)
                         .padding(.horizontal, 16)
