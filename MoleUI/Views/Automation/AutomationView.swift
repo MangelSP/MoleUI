@@ -31,6 +31,7 @@ struct AutomationView: View {
     // MARK: Alerts
 
     @AppStorage(CatSettings.key) private var catEnabled = true
+    @AppStorage(CatSettings.skinKey) private var catSkin = "Orange"
 
     private var alerts: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -40,6 +41,24 @@ struct AutomationView: View {
                 }
                 Text("Shows the pixel cat in the sidebar, loading screens and the Dashboard's Cat Room. Off = plain spinners.")
                     .font(.caption).foregroundStyle(.secondary)
+                if catEnabled {
+                    HStack(spacing: 14) {
+                        ForEach(CatSettings.skins, id: \.self) { skin in
+                            Button { catSkin = skin } label: {
+                                VStack(spacing: 2) {
+                                    Image(skin + "Idle").interpolation(.none).resizable()
+                                        .frame(width: 128, height: 32).offset(x: 0)
+                                        .frame(width: 32, height: 32, alignment: .leading).clipped()
+                                        .scaleEffect(1.5)
+                                    Text(skin).font(.caption2)
+                                }
+                                .padding(8)
+                                .background(catSkin == skin ? Theme.emerald.opacity(0.18) : .clear, in: RoundedRectangle(cornerRadius: 8))
+                            }
+                            .buttonStyle(.plain)
+                        }
+                    }
+                }
                 Divider()
                 Toggle(isOn: $settings.alertsEnabled) {
                     Label("Threshold notifications", systemImage: "bell.badge").font(.display(15, .semibold))

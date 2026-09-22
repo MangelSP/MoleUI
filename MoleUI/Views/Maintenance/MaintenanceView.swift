@@ -83,7 +83,7 @@ struct MaintenanceView: View {
             Image(systemName: "terminal").foregroundStyle(Theme.emerald)
             Text(vm.commandLine).font(.monoLabel(12))
             if let code = vm.exitCode {
-                if code == 0 { PixelCat(mood: .eat, scale: 0.75) }
+                if code == 0 { PixelCat(mood: .eat, scale: 1) }
                 Label(code == 0 ? "Finished" : "Exited with \(code)",
                       systemImage: code == 0 ? "checkmark.circle.fill" : "xmark.circle.fill")
                     .foregroundStyle(code == 0 ? Theme.emerald : .red).font(.callout)

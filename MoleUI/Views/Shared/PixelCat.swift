@@ -5,34 +5,40 @@ import SwiftUI
 /// One switch for every cat (sidebar, loaders, room). Persisted in UserDefaults.
 enum CatSettings {
     static let key = "catEnabled"
+    static let skinKey = "catSkin"
+    static let skins = ["Orange", "Calico", "Tabby"]
     static var enabled: Bool { UserDefaults.standard.object(forKey: key) == nil || UserDefaults.standard.bool(forKey: key) }
 }
 
 struct PixelCat: View {
     @AppStorage(CatSettings.key) private var enabled = true
+    /// Every skin has 4-frame 32px strips: Back, Walk, Front, WalkL, Idle, Groom, (Lie, Sleep).
+    /// Calico has no Lie/Sleep; those fall back to Idle at a slow rate.
     enum Mood {
-        case walk, sleep, eat, alarm, box, pet
-        // ponytail: the "walk" strip is really a sitting tail-swish; motion comes from the caller (see Stroll).
-        var sheet: (name: String, frames: Int, size: CGFloat, fps: Double) {
+        case walk, sleep, eat, alarm, box, pet, idle
+        func sheet(skin: String) -> (name: String, frames: Int, size: CGFloat, fps: Double) {
+            let has = { (row: String) in NSImage(named: skin + row) != nil }
             switch self {
-            case .walk:  return ("CatWalk", 10, 32, 8)
-            case .sleep: return ("CatSleep", 4, 64, 2)
-            case .eat:   return ("CatEat", 4, 64, 4)
-            case .alarm: return ("CatAlarm", 2, 64, 5)
-            case .box:   return ("CatBox", 4, 32, 4)
-            case .pet:   return ("CatEat", 4, 64, 6)     // happy munching = being petted
+            case .walk:  return (skin + "Walk", 4, 32, 6)
+            case .sleep: return has("Sleep") ? (skin + "Sleep", 4, 32, 1.5) : (skin + "Idle", 4, 32, 1)
+            case .eat:   return (skin + "Groom", 4, 32, 4)
+            case .alarm: return (skin + "Front", 4, 32, 10)     // pacing straight at you
+            case .box:   return has("Lie") ? (skin + "Lie", 4, 32, 3) : (skin + "Idle", 4, 32, 3)
+            case .pet:   return (skin + "Groom", 4, 32, 6)
+            case .idle:  return (skin + "Idle", 4, 32, 3)
             }
         }
     }
     var mood: Mood
     var scale: CGFloat = 2
+    @AppStorage(CatSettings.skinKey) private var skin = "Orange"
 
     var body: some View {
-        if enabled { animated } else { ProgressView().controlSize(.small).frame(height: mood.sheet.size * scale) }
+        if enabled { animated } else { ProgressView().controlSize(.small).frame(height: 32 * scale) }
     }
 
     private var animated: some View {
-        let s = mood.sheet
+        let s = mood.sheet(skin: skin)
         return TimelineView(.periodic(from: .now, by: 1 / s.fps)) { ctx in
             let frame = Int(ctx.date.timeIntervalSinceReferenceDate * s.fps) % s.frames
             Image(s.name)
@@ -50,7 +56,7 @@ struct PixelCat: View {
     static func mood(health: Int, cpu: Double, memory: Double) -> Mood {
         if health < 50 || cpu > 90 || memory > 90 { return .alarm }
         if health >= 90 && cpu < 20 { return .sleep }
-        return .walk
+        return .idle
     }
 }
 
@@ -86,7 +92,7 @@ struct InteractiveCat: View {
     }
 }
 
-/// Sitting cat that strolls back and forth with a little bob so it reads as walking.
+/// Walk cycle strolling back and forth (flipped on the way back).
 struct StrollingCat: View {
     var width: CGFloat
     var y: CGFloat
@@ -96,10 +102,9 @@ struct StrollingCat: View {
             let t = ctx.date.timeIntervalSinceReferenceDate
             let phase = t.truncatingRemainder(dividingBy: 8) / 8
             let x = 60 + (width - 200) * (phase < 0.5 ? phase * 2 : 2 - phase * 2)   // ping-pong
-            let bob = abs(sin(t * 8)) * 3                                             // step bounce
             PixelCat(mood: .walk, scale: scale)
-                .scaleEffect(x: phase < 0.5 ? 1 : -1, y: 1 - bob / 40)
-                .offset(x: x, y: y - bob)
+                .scaleEffect(x: phase < 0.5 ? 1 : -1)
+                .offset(x: x, y: y)
         }
     }
 }

@@ -111,11 +111,11 @@ struct CatRoomCard: View {
 
     @ViewBuilder private func cat(_ w: CGFloat) -> some View {
         switch activity {
-        case .sleeping: InteractiveCat(mood: .sleep, scale: 1.5).offset(x: w * 0.42 + 30, y: 84)
-        case .eating:   InteractiveCat(mood: .eat, scale: 1.5).offset(x: 50, y: 80)
-        case .alarmed:  InteractiveCat(mood: .alarm, scale: 1.5).offset(x: w * 0.22 + 70, y: 90)
-        case .playing:  InteractiveCat(mood: .walk, scale: 2).offset(x: w * 0.22 + 84, y: 118)
-        case .strolling: StrollingCat(width: w, y: 118)
+        case .sleeping: InteractiveCat(mood: .sleep, scale: 2.5).offset(x: w * 0.42 + 20, y: 70)
+        case .eating:   InteractiveCat(mood: .eat, scale: 2.5).offset(x: 20, y: 70)
+        case .alarmed:  InteractiveCat(mood: .alarm, scale: 2.5).offset(x: w * 0.22 + 70, y: 90)
+        case .playing:  InteractiveCat(mood: .walk, scale: 2.5).offset(x: w * 0.22 + 84, y: 100)
+        case .strolling: StrollingCat(width: w, y: 100, scale: 2.5)
         }
     }
 

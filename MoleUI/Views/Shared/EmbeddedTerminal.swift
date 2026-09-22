@@ -58,7 +58,7 @@ struct TerminalSheet: View {
                 Text(title).font(.headline)
                 Text((["mo"] + args).joined(separator: " ")).font(.monoLabel(11)).foregroundStyle(.secondary)
                 if let code = exitCode {
-                    if code == 0 { PixelCat(mood: .eat, scale: 0.6) }
+                    if code == 0 { PixelCat(mood: .eat, scale: 1) }
                     Label(code == 0 ? "Finished" : "Exited with \(code)",
                           systemImage: code == 0 ? "checkmark.circle.fill" : "xmark.circle.fill")
                         .foregroundStyle(code == 0 ? Theme.emerald : .red).font(.callout)
