@@ -50,6 +50,8 @@
 		7391F98E6681C7598D9A1375 /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2493CFC41B88079CEA99820 /* Components.swift */; };
 		0BB0893012B306775695F7B2 /* DetailSheets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B25C2BD12D75B1E1BD00D9 /* DetailSheets.swift */; };
 		630079499D908838C6A12464 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCB8953AE57039F8C975994A /* Assets.xcassets */; };
+		5A11AA0000000000000000A3 /* SwiftTerm in Frameworks */ = {isa = PBXBuildFile; productRef = 5A11AA0000000000000000A2 /* SwiftTerm */; };
+		5A11AA0000000000000000B1 /* EmbeddedTerminal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A11AA0000000000000000B2 /* EmbeddedTerminal.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -95,6 +97,7 @@
 		C6D7E8F90A1B2C3D4E5F6071 /* ProcessesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ProcessesView.swift"; path = "Views/Processes/ProcessesView.swift"; sourceTree = "<group>"; };
 		91FA04FC22E5ACCA871ACA60 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "RootView.swift"; path = "Views/RootView.swift"; sourceTree = "<group>"; };
 		D2493CFC41B88079CEA99820 /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Components.swift"; path = "Views/Shared/Components.swift"; sourceTree = "<group>"; };
+		5A11AA0000000000000000B2 /* EmbeddedTerminal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "EmbeddedTerminal.swift"; path = "Views/Shared/EmbeddedTerminal.swift"; sourceTree = "<group>"; };
 		57B25C2BD12D75B1E1BD00D9 /* DetailSheets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DetailSheets.swift"; path = "Views/Shared/DetailSheets.swift"; sourceTree = "<group>"; };
 		FCB8953AE57039F8C975994A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -104,6 +107,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A11AA0000000000000000A3 /* SwiftTerm in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,6 +167,7 @@
 				91FA04FC22E5ACCA871ACA60 /* RootView.swift */,
 				D2493CFC41B88079CEA99820 /* Components.swift */,
 				57B25C2BD12D75B1E1BD00D9 /* DetailSheets.swift */,
+				5A11AA0000000000000000B2 /* EmbeddedTerminal.swift */,
 				FCB8953AE57039F8C975994A /* Assets.xcassets */,
 			);
 			path = "MoleUI";
@@ -192,6 +197,9 @@
 			dependencies = (
 			);
 			name = "MoleUI";
+			packageProductDependencies = (
+				5A11AA0000000000000000A2 /* SwiftTerm */,
+			);
 			productName = "MoleUI";
 			productReference = 71CCD365E3A654DA84DBA191 /* MoleUI.app */;
 			productType = "com.apple.product-type.application";
@@ -220,6 +228,9 @@
 				Base,
 			);
 			mainGroup = 8D3FC6DB5D0827F168A73277;
+			packageReferences = (
+				5A11AA0000000000000000A1 /* XCRemoteSwiftPackageReference "SwiftTerm" */,
+			);
 			productRefGroup = 86024CAD1E83101D97359D73 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -287,6 +298,7 @@
 				FCDE762B2FA709BDE5DD7B78 /* RootView.swift in Sources */,
 				7391F98E6681C7598D9A1375 /* Components.swift in Sources */,
 				0BB0893012B306775695F7B2 /* DetailSheets.swift in Sources */,
+				5A11AA0000000000000000B1 /* EmbeddedTerminal.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -404,6 +416,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		5A11AA0000000000000000A1 /* XCRemoteSwiftPackageReference "SwiftTerm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/migueldeicaza/SwiftTerm";
+			requirement = {
+				kind = exactVersion;
+				version = 1.10.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		5A11AA0000000000000000A2 /* SwiftTerm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5A11AA0000000000000000A1 /* XCRemoteSwiftPackageReference "SwiftTerm" */;
+			productName = SwiftTerm;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 46F86FAA6BBF9AC94A7E4595 /* Project object */;
 }
