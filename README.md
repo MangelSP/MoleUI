@@ -27,9 +27,24 @@ affiliated with or endorsed by the Mole project.
 
 - **Dashboard** — live system status (2.5s polling): health score, per-core CPU, memory
   & swap, disks with SMART, network interfaces, and top processes. Every card and process
-  has a detail view.
+  has a detail view. CPU history charts (total + per core). The Fan card switches the
+  thermal profile — **Silent / Auto / Full** — through macOS power modes (`pmset`).
 - **Disk Analyzer** — visual, drill-down explorer of what's using your disk, with
   `cleanable` badges and move-to-Trash.
+- **Dev Junk** (Analyze › Dev Junk) — a tree of everything developers accumulate, with
+  sizes, checkboxes and multi-select → Trash:
+  - **Tool caches & emulators**: Gradle / Maven, Android AVDs & system images, Xcode
+    DerivedData / Archives / device support / simulators, pub-cache, npm / yarn / pnpm,
+    Playwright, NuGet, pip / uv, CocoaPods, Homebrew, Go, Cargo…
+  - **AI-tool data**: Claude Code transcripts & snapshots, Claude Desktop VM bundles and
+    caches, Codex, Cursor, Antigravity / Gemini, Orca, VS Code, JetBrains — only the
+    disposable sub-folders, never settings or credentials.
+  - **Per-project build output** under your scan roots: `node_modules`, `.next`, `dist`,
+    `build`, `target`, `.dart_tool`, `Pods`, `bin`/`obj` (.NET only), `__pycache__`,
+    `.venv`, plus `*.apk` / `*.aab` / `*.ipa` / `*.xcarchive` / `*.dSYM`.
+  - Items that are slow to rebuild or hold state carry a **review** badge; *Select all safe*
+    picks everything else. One-click `docker system prune`, `simctl delete unavailable`,
+    `brew cleanup`, `dart pub cache clean`… run in the embedded terminal.
 - **Ports** — every listening local port (dev servers included), with per-process detail
   and a kill action. Common dev ports are highlighted.
 - **Processes** — every process sorted by resident memory, grouped by `.app` bundle
@@ -61,6 +76,10 @@ affiliated with or endorsed by the Mole project.
   it to pet it. Three skins; can be turned off in Automation.
 
 ## Screenshots
+
+| Dev Junk | Dashboard |
+|---|---|
+| ![Dev Junk](docs/screenshots/devjunk.png) | ![Dashboard](docs/screenshots/dashboard.png) |
 
 | Processes | Maintenance (embedded terminal) |
 |---|---|
@@ -109,6 +128,9 @@ Modular **MVVM** with Swift Concurrency:
 - `Services/ProcessRunner` — the single `async` `Process` primitive (deadlock-safe pipe draining).
 - `Services/MoleService` — typed wrappers over `mo status/analyze --json` (snake_case decoding).
 - `Services/PortsService`, `NetworkService`, `CleanupService` — native `lsof` / `ps` / `nettop` / `find`.
+- `Services/DevJunkService` — static catalog of known junk locations + batched `du`; add a line to
+  `catalog` when a new tool shows up.
+- `Services/PowerModeService` — `pmset` power modes behind the Fan card (Apple Silicon has no fan API).
 - `Views/Shared/EmbeddedTerminal` — [SwiftTerm](https://github.com/migueldeicaza/SwiftTerm) PTY that runs
   Mole's interactive TUIs (`clean`, `purge`, `optimize`, `uninstall`, `touchid`) inside the app.
   Pinned to 1.10.0 — later versions need the Metal toolchain and a build plugin.
