@@ -91,20 +91,3 @@ struct InteractiveCat: View {
         .help(mood == .alarm ? "The cat is upset — check CPU / RAM / disk" : "Click to pet the cat")
     }
 }
-
-/// Walk cycle strolling back and forth (flipped on the way back).
-struct StrollingCat: View {
-    var width: CGFloat
-    var y: CGFloat
-    var scale: CGFloat = 2
-    var body: some View {
-        TimelineView(.periodic(from: .now, by: 1 / 30)) { ctx in
-            let t = ctx.date.timeIntervalSinceReferenceDate
-            let phase = t.truncatingRemainder(dividingBy: 8) / 8
-            let x = 60 + (width - 200) * (phase < 0.5 ? phase * 2 : 2 - phase * 2)   // ping-pong
-            PixelCat(mood: .walk, scale: scale)
-                .scaleEffect(x: phase < 0.5 ? 1 : -1)
-                .offset(x: x, y: y)
-        }
-    }
-}

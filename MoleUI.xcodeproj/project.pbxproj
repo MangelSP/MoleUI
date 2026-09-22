@@ -55,7 +55,6 @@
 		5A11AA0000000000000000C1 /* PixelCat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A11AA0000000000000000C2 /* PixelCat.swift */; };
 		5A11AA0000000000000000D1 /* AppsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A11AA0000000000000000D2 /* AppsView.swift */; };
 		5A11AA0000000000000000D3 /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A11AA0000000000000000D4 /* HistoryView.swift */; };
-		5A11AA0000000000000000E1 /* CatRoomCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A11AA0000000000000000E2 /* CatRoomCard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -105,7 +104,6 @@
 		5A11AA0000000000000000C2 /* PixelCat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "PixelCat.swift"; path = "Views/Shared/PixelCat.swift"; sourceTree = "<group>"; };
 		5A11AA0000000000000000D2 /* AppsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "AppsView.swift"; path = "Views/Apps/AppsView.swift"; sourceTree = "<group>"; };
 		5A11AA0000000000000000D4 /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "HistoryView.swift"; path = "Views/History/HistoryView.swift"; sourceTree = "<group>"; };
-		5A11AA0000000000000000E2 /* CatRoomCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CatRoomCard.swift"; path = "Views/Dashboard/CatRoomCard.swift"; sourceTree = "<group>"; };
 		57B25C2BD12D75B1E1BD00D9 /* DetailSheets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DetailSheets.swift"; path = "Views/Shared/DetailSheets.swift"; sourceTree = "<group>"; };
 		FCB8953AE57039F8C975994A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -175,7 +173,6 @@
 				91FA04FC22E5ACCA871ACA60 /* RootView.swift */,
 				D2493CFC41B88079CEA99820 /* Components.swift */,
 				57B25C2BD12D75B1E1BD00D9 /* DetailSheets.swift */,
-				5A11AA0000000000000000E2 /* CatRoomCard.swift */,
 				5A11AA0000000000000000D4 /* HistoryView.swift */,
 				5A11AA0000000000000000D2 /* AppsView.swift */,
 				5A11AA0000000000000000C2 /* PixelCat.swift */,
@@ -310,7 +307,6 @@
 				FCDE762B2FA709BDE5DD7B78 /* RootView.swift in Sources */,
 				7391F98E6681C7598D9A1375 /* Components.swift in Sources */,
 				0BB0893012B306775695F7B2 /* DetailSheets.swift in Sources */,
-				5A11AA0000000000000000E1 /* CatRoomCard.swift in Sources */,
 				5A11AA0000000000000000D3 /* HistoryView.swift in Sources */,
 				5A11AA0000000000000000D1 /* AppsView.swift in Sources */,
 				5A11AA0000000000000000C1 /* PixelCat.swift in Sources */,

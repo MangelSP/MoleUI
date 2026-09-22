@@ -13,11 +13,6 @@ struct MoleSession: Decodable, Identifiable {
     var actions: Actions
     struct Actions: Decodable { var removed, trashed, skipped, failed, rebuilt, other: Int }
 
-    enum CodingKeys: String, CodingKey {
-        case command, items, size, actions
-        case startedAt = "started_at", endedAt = "ended_at"
-        case operationCount = "operation_count", failedTasks = "failed_tasks"
-    }
 }
 
 struct HistoryView: View {
@@ -30,7 +25,6 @@ struct HistoryView: View {
         VStack(spacing: 0) {
             HStack(spacing: 12) {
                 Text("\(sessions.count) sessions").foregroundStyle(.secondary)
-                if let errorText { Text(errorText).font(.caption).foregroundStyle(.red) }
                 Spacer()
                 if !logPath.isEmpty {
                     Button { NSWorkspace.shared.selectFile(logPath, inFileViewerRootedAtPath: "") } label: {
@@ -45,8 +39,9 @@ struct HistoryView: View {
                 VStack(spacing: 10) { PixelCat(mood: .walk); Text("Reading history…").foregroundStyle(.secondary) }
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else if sessions.isEmpty {
-                ContentUnavailableView("No history yet", systemImage: "clock",
-                                       description: Text("Run Clean, Purge, Optimize or Uninstall and it will show up here."))
+                ContentUnavailableView(errorText == nil ? "No history yet" : "Couldn't read history", systemImage: "clock",
+                                       description: Text(errorText ?? "Run Clean, Purge, Optimize or Uninstall and it will show up here."))
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else {
                 Table(sessions) {
                     TableColumn("When") { s in Text(s.startedAt).monospacedDigit() }.width(150)

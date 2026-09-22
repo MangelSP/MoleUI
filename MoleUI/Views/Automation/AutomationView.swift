@@ -39,7 +39,7 @@ struct AutomationView: View {
                 Toggle(isOn: $catEnabled) {
                     Label("Cat mascot", systemImage: "pawprint").font(.display(15, .semibold))
                 }
-                Text("Shows the pixel cat in the sidebar, loading screens and the Dashboard's Cat Room. Off = plain spinners.")
+                Text("Shows the pixel cat in the sidebar, menu bar and loading screens. Off = plain spinners.")
                     .font(.caption).foregroundStyle(.secondary)
                 if catEnabled {
                     HStack(spacing: 14) {
