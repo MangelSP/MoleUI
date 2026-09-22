@@ -4,12 +4,23 @@ import AppKit
 struct AnalyzeView: View {
     @StateObject private var vm = AnalyzeViewModel()
     @State private var pendingTrash: MoleAnalysis.Entry?
+    @State private var mode = 0     // 0 explorer · 1 dev junk
 
     var body: some View {
         VStack(spacing: 0) {
-            pathBar
+            Picker("", selection: $mode) {
+                Label("Explorer", systemImage: "internaldrive").tag(0)
+                Label("Dev Junk", systemImage: "hammer").tag(1)
+            }
+            .pickerStyle(.segmented).labelsHidden().frame(width: 260).padding(.vertical, 8)
             Divider()
-            content
+            if mode == 1 {
+                DevJunkView()
+            } else {
+                pathBar
+                Divider()
+                content
+            }
         }
         .background(Theme.bg)
         .scrollContentBackground(.hidden)

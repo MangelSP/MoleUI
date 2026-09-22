@@ -15,11 +15,13 @@
 		D10DBE5C3713D78C0E59C36B /* PortProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7C0EA0A2A46B272FE0DA66 /* PortProcess.swift */; };
 		15583E64E31D67E3769095C6 /* MoleUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665F2942AD11DEF9FBEE56A9 /* MoleUIApp.swift */; };
 		1071D7DDFEFE30F42EA9A15B /* CleanupService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01A875E105854D22D8D192A /* CleanupService.swift */; };
+		75C81E13CF4BD5F5C4F862A4 /* DevJunkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94239A8D0C851C5EC7B7569C /* DevJunkService.swift */; };
 		09DA09DA42DB338D740AA665 /* MemoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715FEAEF339354C19AD79DBB /* MemoryService.swift */; };
 		CBFCA126C01DD4057696A0E6 /* MoleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD4ABC3640ED54452545D779 /* MoleService.swift */; };
 		EC5B8B58EB38A913610C6FA2 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD58101D8D5B68DB40E03E95 /* NetworkService.swift */; };
 		6C75F6A1E73C794E0D0F1C52 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F95A624CFAE776547277B2E5 /* NotificationService.swift */; };
 		1DAF8D74C5F2CB7F43A5823B /* PortsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DDA4883DDE2C614605C7CDD /* PortsService.swift */; };
+		8175F82D3120F2E11E233B63 /* PowerModeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D202562014FC5F23FDD1C939 /* PowerModeService.swift */; };
 		8BADEE96913E3D45199587B8 /* ProcessRunner.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6EC2F13716B824C8F8E9AA1 /* ProcessRunner.swift */; };
 		8EE6120E702D47EC829E163C /* ProcessService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B8DC3D892299B100C195149 /* ProcessService.swift */; };
 		32E3FE7AA6F9B8AC8F3DAF7D /* SnapshotService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75DA471AD19C48FED71A8CEA /* SnapshotService.swift */; };
@@ -38,6 +40,7 @@
 		E5702256E08F2A2CCF8F2093 /* PortsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2D8F2BEA1128FB318F7E8BF2 /* PortsViewModel.swift */; };
 		3BD294920D83ECB1C3A9A711 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B627BCBFEF880CA2DC470C9 /* AboutView.swift */; };
 		B5B97A417AC0FD7B79706BD0 /* AnalyzeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4060CAF347F804FC70889B2A /* AnalyzeView.swift */; };
+		8CE9436AFEA69DE237067402 /* DevJunkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2CCCC28D262469ECD9DFFCC /* DevJunkView.swift */; };
 		580B58C62E85C5B3AF2DE95C /* AppsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217D89797C87A82F246C8F2C /* AppsView.swift */; };
 		80ECFC401D69FAB4C7916E8E /* AutomationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBA567DCECCB272C2B55444B /* AutomationView.swift */; };
 		24562D47A5F3951CD0B7AFDA /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF4260103864233DB8D7C38A /* DashboardView.swift */; };
@@ -67,11 +70,13 @@
 		8C7C0EA0A2A46B272FE0DA66 /* PortProcess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "PortProcess.swift"; path = "Models/PortProcess.swift"; sourceTree = "<group>"; };
 		665F2942AD11DEF9FBEE56A9 /* MoleUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MoleUIApp.swift"; path = "MoleUIApp.swift"; sourceTree = "<group>"; };
 		F01A875E105854D22D8D192A /* CleanupService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CleanupService.swift"; path = "Services/CleanupService.swift"; sourceTree = "<group>"; };
+		94239A8D0C851C5EC7B7569C /* DevJunkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DevJunkService.swift"; path = "Services/DevJunkService.swift"; sourceTree = "<group>"; };
 		715FEAEF339354C19AD79DBB /* MemoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MemoryService.swift"; path = "Services/MemoryService.swift"; sourceTree = "<group>"; };
 		FD4ABC3640ED54452545D779 /* MoleService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "MoleService.swift"; path = "Services/MoleService.swift"; sourceTree = "<group>"; };
 		BD58101D8D5B68DB40E03E95 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "NetworkService.swift"; path = "Services/NetworkService.swift"; sourceTree = "<group>"; };
 		F95A624CFAE776547277B2E5 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "NotificationService.swift"; path = "Services/NotificationService.swift"; sourceTree = "<group>"; };
 		6DDA4883DDE2C614605C7CDD /* PortsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "PortsService.swift"; path = "Services/PortsService.swift"; sourceTree = "<group>"; };
+		D202562014FC5F23FDD1C939 /* PowerModeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "PowerModeService.swift"; path = "Services/PowerModeService.swift"; sourceTree = "<group>"; };
 		A6EC2F13716B824C8F8E9AA1 /* ProcessRunner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ProcessRunner.swift"; path = "Services/ProcessRunner.swift"; sourceTree = "<group>"; };
 		7B8DC3D892299B100C195149 /* ProcessService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ProcessService.swift"; path = "Services/ProcessService.swift"; sourceTree = "<group>"; };
 		75DA471AD19C48FED71A8CEA /* SnapshotService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "SnapshotService.swift"; path = "Services/SnapshotService.swift"; sourceTree = "<group>"; };
@@ -90,6 +95,7 @@
 		2D8F2BEA1128FB318F7E8BF2 /* PortsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "PortsViewModel.swift"; path = "ViewModels/PortsViewModel.swift"; sourceTree = "<group>"; };
 		2B627BCBFEF880CA2DC470C9 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "AboutView.swift"; path = "Views/About/AboutView.swift"; sourceTree = "<group>"; };
 		4060CAF347F804FC70889B2A /* AnalyzeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "AnalyzeView.swift"; path = "Views/Analyze/AnalyzeView.swift"; sourceTree = "<group>"; };
+		F2CCCC28D262469ECD9DFFCC /* DevJunkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DevJunkView.swift"; path = "Views/Analyze/DevJunkView.swift"; sourceTree = "<group>"; };
 		217D89797C87A82F246C8F2C /* AppsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "AppsView.swift"; path = "Views/Apps/AppsView.swift"; sourceTree = "<group>"; };
 		BBA567DCECCB272C2B55444B /* AutomationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "AutomationView.swift"; path = "Views/Automation/AutomationView.swift"; sourceTree = "<group>"; };
 		DF4260103864233DB8D7C38A /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DashboardView.swift"; path = "Views/Dashboard/DashboardView.swift"; sourceTree = "<group>"; };
@@ -139,11 +145,13 @@
 				8C7C0EA0A2A46B272FE0DA66 /* PortProcess.swift */,
 				665F2942AD11DEF9FBEE56A9 /* MoleUIApp.swift */,
 				F01A875E105854D22D8D192A /* CleanupService.swift */,
+				94239A8D0C851C5EC7B7569C /* DevJunkService.swift */,
 				715FEAEF339354C19AD79DBB /* MemoryService.swift */,
 				FD4ABC3640ED54452545D779 /* MoleService.swift */,
 				BD58101D8D5B68DB40E03E95 /* NetworkService.swift */,
 				F95A624CFAE776547277B2E5 /* NotificationService.swift */,
 				6DDA4883DDE2C614605C7CDD /* PortsService.swift */,
+				D202562014FC5F23FDD1C939 /* PowerModeService.swift */,
 				A6EC2F13716B824C8F8E9AA1 /* ProcessRunner.swift */,
 				7B8DC3D892299B100C195149 /* ProcessService.swift */,
 				75DA471AD19C48FED71A8CEA /* SnapshotService.swift */,
@@ -162,6 +170,7 @@
 				2D8F2BEA1128FB318F7E8BF2 /* PortsViewModel.swift */,
 				2B627BCBFEF880CA2DC470C9 /* AboutView.swift */,
 				4060CAF347F804FC70889B2A /* AnalyzeView.swift */,
+				F2CCCC28D262469ECD9DFFCC /* DevJunkView.swift */,
 				217D89797C87A82F246C8F2C /* AppsView.swift */,
 				BBA567DCECCB272C2B55444B /* AutomationView.swift */,
 				DF4260103864233DB8D7C38A /* DashboardView.swift */,
@@ -273,11 +282,13 @@
 				D10DBE5C3713D78C0E59C36B /* PortProcess.swift in Sources */,
 				15583E64E31D67E3769095C6 /* MoleUIApp.swift in Sources */,
 				1071D7DDFEFE30F42EA9A15B /* CleanupService.swift in Sources */,
+				75C81E13CF4BD5F5C4F862A4 /* DevJunkService.swift in Sources */,
 				09DA09DA42DB338D740AA665 /* MemoryService.swift in Sources */,
 				CBFCA126C01DD4057696A0E6 /* MoleService.swift in Sources */,
 				EC5B8B58EB38A913610C6FA2 /* NetworkService.swift in Sources */,
 				6C75F6A1E73C794E0D0F1C52 /* NotificationService.swift in Sources */,
 				1DAF8D74C5F2CB7F43A5823B /* PortsService.swift in Sources */,
+				8175F82D3120F2E11E233B63 /* PowerModeService.swift in Sources */,
 				8BADEE96913E3D45199587B8 /* ProcessRunner.swift in Sources */,
 				8EE6120E702D47EC829E163C /* ProcessService.swift in Sources */,
 				32E3FE7AA6F9B8AC8F3DAF7D /* SnapshotService.swift in Sources */,
@@ -296,6 +307,7 @@
 				E5702256E08F2A2CCF8F2093 /* PortsViewModel.swift in Sources */,
 				3BD294920D83ECB1C3A9A711 /* AboutView.swift in Sources */,
 				B5B97A417AC0FD7B79706BD0 /* AnalyzeView.swift in Sources */,
+				8CE9436AFEA69DE237067402 /* DevJunkView.swift in Sources */,
 				580B58C62E85C5B3AF2DE95C /* AppsView.swift in Sources */,
 				80ECFC401D69FAB4C7916E8E /* AutomationView.swift in Sources */,
 				24562D47A5F3951CD0B7AFDA /* DashboardView.swift in Sources */,

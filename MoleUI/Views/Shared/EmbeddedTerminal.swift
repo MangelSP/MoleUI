@@ -46,6 +46,7 @@ struct EmbeddedTerminal: NSViewRepresentable {
 struct TerminalSheet: View {
     var title: String
     var args: [String]
+    var executable: String? = nil        // nil = mo
     var onDone: (Int32?) -> Void = { _ in }
     @Environment(\.dismiss) private var dismiss
     @State private var mo: String?
@@ -56,7 +57,7 @@ struct TerminalSheet: View {
             HStack(spacing: 10) {
                 Image(systemName: "terminal").foregroundStyle(Theme.emerald)
                 Text(title).font(.headline)
-                Text((["mo"] + args).joined(separator: " ")).font(.monoLabel(11)).foregroundStyle(.secondary)
+                Text(([executable.map { ($0 as NSString).lastPathComponent } ?? "mo"] + args).joined(separator: " ")).font(.monoLabel(11)).foregroundStyle(.secondary)
                 if let code = exitCode {
                     if code == 0 { PixelCat(mood: .eat, scale: 1) }
                     Label(code == 0 ? "Finished" : "Exited with \(code)",
@@ -77,6 +78,6 @@ struct TerminalSheet: View {
         }
         .frame(width: 760, height: 520)
         .background(Theme.bg)
-        .task { mo = await MoleService.shared.resolvePath() }
+        .task { if let executable { mo = executable } else { mo = await MoleService.shared.resolvePath() } }
     }
 }

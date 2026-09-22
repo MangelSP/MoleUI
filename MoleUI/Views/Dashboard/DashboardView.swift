@@ -6,6 +6,8 @@ struct DashboardView: View {
     @State private var detailProcess: MoleStatus.ProcessInfo?
     @State private var detailIface: MoleStatus.NetInterface?
     @State private var freeingRAM = false
+    @State private var powerMode: PowerModeService.Mode = .auto
+    @State private var highPower = false
 
     private let columns = [GridItem(.adaptive(minimum: 300), spacing: 14)]
 
@@ -44,12 +46,16 @@ struct DashboardView: View {
         }
         .background(Theme.bg)
         .navigationTitle("Dashboard")
+        .task { (powerMode, highPower) = await PowerModeService.current() }
         .task { vm.startPolling() }
         .sheet(item: $detailProcess) { ProcessDetailView(process: $0) }
         .sheet(item: $detailIface) { NetworkDetailView(iface: $0) }
     }
 
     // MARK: Card header
+
+    /// All grid cards share one height so rows line up regardless of content.
+    private let cardHeight: CGFloat = 132
 
     private func header(_ title: String, _ icon: String, badge: (String, Color)? = nil) -> some View {
         HStack {
@@ -94,6 +100,7 @@ struct DashboardView: View {
                     .frame(width: 64, height: 64)
             }
         }
+        .frame(maxWidth: .infinity, minHeight: cardHeight, maxHeight: cardHeight, alignment: .topLeading)
         .moleCard()
     }
 
@@ -108,6 +115,7 @@ struct DashboardView: View {
             Text("\(cpuState(cpu.usage)) · Load \(cpu.load1, specifier: "%.1f") / \(cpu.perCore.count) cores")
                 .font(.monoLabel(10)).foregroundStyle(.secondary)
         }
+        .frame(maxWidth: .infinity, minHeight: cardHeight, maxHeight: cardHeight, alignment: .topLeading)
         .moleCard()
     }
 
@@ -135,6 +143,7 @@ struct DashboardView: View {
             Text("\(Bytes.string(m.used)) · \(Bytes.string(m.swapUsed)) swap")
                 .font(.monoLabel(10)).foregroundStyle(.secondary)
         }
+        .frame(maxWidth: .infinity, minHeight: cardHeight, maxHeight: cardHeight, alignment: .topLeading)
         .moleCard()
     }
 
@@ -149,6 +158,7 @@ struct DashboardView: View {
                     .font(.monoLabel(10)).foregroundStyle(.secondary)
             }
         }
+        .frame(maxWidth: .infinity, minHeight: cardHeight, maxHeight: cardHeight, alignment: .topLeading)
         .moleCard()
     }
 
@@ -175,6 +185,7 @@ struct DashboardView: View {
             Text("↑ \(rateString(net?.txRateMbs ?? 0)) · \(net?.ip ?? "offline")")
                 .font(.monoLabel(10)).foregroundStyle(.secondary)
         }
+        .frame(maxWidth: .infinity, minHeight: cardHeight, maxHeight: cardHeight, alignment: .topLeading)
         .moleCard()
     }
 
@@ -192,6 +203,7 @@ struct DashboardView: View {
             Text("\(usage >= 0 ? "active" : "idle") · \(gpu?.coreCount ?? 0) GPU cores")
                 .font(.monoLabel(10)).foregroundStyle(.secondary)
         }
+        .frame(maxWidth: .infinity, minHeight: cardHeight, maxHeight: cardHeight, alignment: .topLeading)
         .moleCard()
     }
 
@@ -215,6 +227,7 @@ struct DashboardView: View {
                 Text("No battery").font(.callout).foregroundStyle(.secondary).padding(.vertical, 8)
             }
         }
+        .frame(maxWidth: .infinity, minHeight: cardHeight, maxHeight: cardHeight, alignment: .topLeading)
         .moleCard()
     }
 
@@ -224,10 +237,27 @@ struct DashboardView: View {
             header("FAN", "fanblades", badge: t.systemPower > 0 ? ("\(Int(t.systemPower))W", Theme.amber) : nil)
             Readout(value: t.fanSpeed > 0 ? Int(t.fanSpeed).formatted() : "—",
                     unit: t.fanSpeed > 0 ? "RPM" : nil, size: 26)
-            Text(t.fanSpeed > 0 ? "Managed by macOS · \(t.fanCount) fan\(t.fanCount == 1 ? "" : "s")"
-                                : "Silent · managed by macOS")
+            Picker("", selection: $powerMode) {
+                ForEach(PowerModeService.Mode.allCases, id: \.self) { m in
+                    Text(m.rawValue).tag(m)
+                }
+            }
+            .pickerStyle(.segmented).labelsHidden().controlSize(.small)
+            .onChange(of: powerMode) { _, m in
+                Task {
+                    if !(await PowerModeService.set(m, highPowerSupported: highPower)) {
+                        (powerMode, highPower) = await PowerModeService.current()   // cancelled → revert
+                    }
+                }
+            }
+            .help(highPower ? "Silent = Low Power · Auto · Full = High Power (pmset)"
+                            : "Silent = Low Power Mode · Auto. Full (High Power) isn't available on this Mac.")
+            Text(powerMode == .silent ? "Low Power Mode · quieter, slower"
+                 : powerMode == .full ? "High Power · fans may spin up"
+                 : t.fanSpeed > 0 ? "Auto · \(t.fanCount) fan\(t.fanCount == 1 ? "" : "s") managed by macOS" : "Auto · managed by macOS")
                 .font(.monoLabel(10)).foregroundStyle(.secondary)
         }
+        .frame(maxWidth: .infinity, minHeight: cardHeight, maxHeight: cardHeight, alignment: .topLeading)
         .moleCard()
     }
 
