@@ -25,6 +25,9 @@ struct DashboardView: View {
                     }
                     .padding(16)
 
+                    CPUHistoryCard(cpu: s.cpu, vm: vm)
+                        .padding(.horizontal, 16)
+
                     processTable(s.topProcesses)
                         .padding([.horizontal, .bottom], 16)
                 }

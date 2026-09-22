@@ -42,6 +42,7 @@ struct Readout: View {
 struct Sparkline: View {
     var samples: [Double]
     var tint: Color = Theme.emerald
+    var range: ClosedRange<Double>? = nil   // fixed scale (e.g. 0...100); nil = auto-fit
 
     var body: some View {
         GeometryReader { geo in
@@ -61,7 +62,7 @@ struct Sparkline: View {
 
     private func points(in size: CGSize) -> [CGPoint] {
         guard samples.count >= 2 else { return [] }
-        let lo = samples.min() ?? 0, hi = samples.max() ?? 1
+        let lo = range?.lowerBound ?? samples.min() ?? 0, hi = range?.upperBound ?? samples.max() ?? 1
         let span = max(hi - lo, 0.0001)
         let dx = size.width / CGFloat(samples.count - 1)
         return samples.enumerated().map { i, v in
@@ -119,3 +120,44 @@ struct Meter: View {
         .frame(height: 10)
     }
 }
+
+/// Single-core (aggregate) line plus one mini chart per core, ~100 s of history.
+struct CPUHistoryCard: View {
+let cpu: MoleStatus.CPU
+@ObservedObject var vm: DashboardViewModel
+
+var body: some View {
+    let coreCols = [GridItem(.adaptive(minimum: 110), spacing: 8)]
+    VStack(alignment: .leading, spacing: 12) {
+        HStack {
+            HStack(spacing: 6) {
+                Image(systemName: "waveform.path.ecg").font(.system(size: 11))
+                Text("CPU HISTORY").font(.monoLabel(11)).tracking(1)
+            }.foregroundStyle(Theme.emerald)
+            Spacer()
+            Text("\(cpu.perCore.count) cores · \(Int(cpu.usage))%").font(.monoLabel(10))
+                .foregroundStyle(Theme.load(cpu.usage))
+        }
+        Text("Single core (total)").font(.monoLabel(10)).foregroundStyle(.secondary)
+        Sparkline(samples: vm.cpuHistory, tint: Theme.load(cpu.usage), range: 0...100)
+            .frame(height: 70)
+        Text("Multi core").font(.monoLabel(10)).foregroundStyle(.secondary)
+        LazyVGrid(columns: coreCols, spacing: 8) {
+            ForEach(Array(vm.coreHistory.enumerated()), id: \.offset) { i, series in
+                let v = series.last ?? 0
+                let kind = i < cpu.pCoreCount ? "P" : "E"
+                VStack(alignment: .leading, spacing: 2) {
+                    HStack {
+                        Text("\(kind)\(i)").font(.monoLabel(9)).foregroundStyle(.secondary)
+                        Spacer()
+                        Text("\(Int(v))%").font(.monoLabel(9)).foregroundStyle(Theme.load(v))
+                    }
+                    Sparkline(samples: series, tint: Theme.load(v), range: 0...100)
+                }
+            }
+        }
+    }
+    .moleCard()
+}
+}
+

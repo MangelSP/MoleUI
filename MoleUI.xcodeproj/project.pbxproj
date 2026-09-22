@@ -45,6 +45,7 @@
 		AB2B276C632AFFF0C690981A /* NetworkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A4089F2E477B45E23EDCAE9 /* NetworkView.swift */; };
 		4702BE274A3041AB2629BB3B /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEC6C6BC92AE8836D594BFD1 /* OnboardingView.swift */; };
 		DC314FD5F649E1974A36309F /* PortsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8B8F6027DE173CF62D88A9 /* PortsView.swift */; };
+		A1B2C3D4E5F60718293A4B5C /* ProcessesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6D7E8F90A1B2C3D4E5F6071 /* ProcessesView.swift */; };
 		FCDE762B2FA709BDE5DD7B78 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91FA04FC22E5ACCA871ACA60 /* RootView.swift */; };
 		7391F98E6681C7598D9A1375 /* Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2493CFC41B88079CEA99820 /* Components.swift */; };
 		0BB0893012B306775695F7B2 /* DetailSheets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 57B25C2BD12D75B1E1BD00D9 /* DetailSheets.swift */; };
@@ -91,6 +92,7 @@
 		6A4089F2E477B45E23EDCAE9 /* NetworkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "NetworkView.swift"; path = "Views/Network/NetworkView.swift"; sourceTree = "<group>"; };
 		EEC6C6BC92AE8836D594BFD1 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "OnboardingView.swift"; path = "Views/Onboarding/OnboardingView.swift"; sourceTree = "<group>"; };
 		AF8B8F6027DE173CF62D88A9 /* PortsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "PortsView.swift"; path = "Views/Ports/PortsView.swift"; sourceTree = "<group>"; };
+		C6D7E8F90A1B2C3D4E5F6071 /* ProcessesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ProcessesView.swift"; path = "Views/Processes/ProcessesView.swift"; sourceTree = "<group>"; };
 		91FA04FC22E5ACCA871ACA60 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "RootView.swift"; path = "Views/RootView.swift"; sourceTree = "<group>"; };
 		D2493CFC41B88079CEA99820 /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Components.swift"; path = "Views/Shared/Components.swift"; sourceTree = "<group>"; };
 		57B25C2BD12D75B1E1BD00D9 /* DetailSheets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DetailSheets.swift"; path = "Views/Shared/DetailSheets.swift"; sourceTree = "<group>"; };
@@ -157,6 +159,7 @@
 				6A4089F2E477B45E23EDCAE9 /* NetworkView.swift */,
 				EEC6C6BC92AE8836D594BFD1 /* OnboardingView.swift */,
 				AF8B8F6027DE173CF62D88A9 /* PortsView.swift */,
+				C6D7E8F90A1B2C3D4E5F6071 /* ProcessesView.swift */,
 				91FA04FC22E5ACCA871ACA60 /* RootView.swift */,
 				D2493CFC41B88079CEA99820 /* Components.swift */,
 				57B25C2BD12D75B1E1BD00D9 /* DetailSheets.swift */,
@@ -280,6 +283,7 @@
 				AB2B276C632AFFF0C690981A /* NetworkView.swift in Sources */,
 				4702BE274A3041AB2629BB3B /* OnboardingView.swift in Sources */,
 				DC314FD5F649E1974A36309F /* PortsView.swift in Sources */,
+				A1B2C3D4E5F60718293A4B5C /* ProcessesView.swift in Sources */,
 				FCDE762B2FA709BDE5DD7B78 /* RootView.swift in Sources */,
 				7391F98E6681C7598D9A1375 /* Components.swift in Sources */,
 				0BB0893012B306775695F7B2 /* DetailSheets.swift in Sources */,
@@ -339,7 +343,7 @@
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/../Frameworks");
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.moleui.app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -369,7 +373,7 @@
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/../Frameworks");
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.moleui.app";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
