@@ -43,11 +43,8 @@ struct RootView: View {
         let mood: PixelCat.Mood = s.map {
             PixelCat.mood(health: $0.healthScore, cpu: $0.cpu.usage, memory: $0.memory.usedPercent)
         } ?? .box
-        return VStack(spacing: 2) {
-            PixelCat(mood: mood)
-            Text(mood == .alarm ? "System under pressure!" : mood == .sleep ? "All quiet" : mood == .box ? "Loading…" : "Purring along")
-                .font(.monoLabel(9)).foregroundStyle(mood == .alarm ? .red : .secondary)
-        }
-        .padding(.bottom, 10)
+        return InteractiveCat(mood: mood,
+                              caption: mood == .alarm ? "System under pressure!" : mood == .sleep ? "All quiet" : mood == .box ? "Loading…" : "Purring along")
+            .padding(.bottom, 10)
     }
 }

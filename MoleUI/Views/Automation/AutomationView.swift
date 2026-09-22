@@ -44,8 +44,12 @@ struct AutomationView: View {
                 Toggle(isOn: $settings.alertsEnabled) {
                     Label("Threshold notifications", systemImage: "bell.badge").font(.display(15, .semibold))
                 }
-                Text("Get a macOS notification when a resource crosses its limit (edge-triggered, 10-min cooldown).")
-                    .font(.caption).foregroundStyle(.secondary)
+                HStack {
+                    Text("Get a macOS notification when a resource crosses its limit (edge-triggered, 10-min cooldown).")
+                        .font(.caption).foregroundStyle(.secondary)
+                    Spacer()
+                    Button("Send test") { NotificationService.shared.sendTest() }.controlSize(.small)
+                }
                 Divider()
                 thresholdRow("CPU usage", value: $settings.cpuThreshold, unit: "%")
                 thresholdRow("RAM usage", value: $settings.ramThreshold, unit: "%")

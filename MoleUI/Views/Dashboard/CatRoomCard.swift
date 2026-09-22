@@ -111,16 +111,11 @@ struct CatRoomCard: View {
 
     @ViewBuilder private func cat(_ w: CGFloat) -> some View {
         switch activity {
-        case .sleeping: PixelCat(mood: .sleep, scale: 1.5).offset(x: w * 0.42 + 30, y: 84)
-        case .eating:   PixelCat(mood: .eat, scale: 1.5).offset(x: 50, y: 80)
-        case .alarmed:  PixelCat(mood: .alarm, scale: 1.5).offset(x: w * 0.22 + 70, y: 90)
-        case .playing:  PixelCat(mood: .walk, scale: 2).offset(x: w * 0.22 + 84, y: 118)
-        case .strolling:
-            TimelineView(.periodic(from: .now, by: 1 / 30)) { ctx in
-                let t = ctx.date.timeIntervalSinceReferenceDate.truncatingRemainder(dividingBy: 8) / 8
-                let x = 60 + (w - 200) * (t < 0.5 ? t * 2 : 2 - t * 2)   // ping-pong
-                PixelCat(mood: .walk, scale: 2).scaleEffect(x: t < 0.5 ? 1 : -1).offset(x: x, y: 118)
-            }
+        case .sleeping: InteractiveCat(mood: .sleep, scale: 1.5).offset(x: w * 0.42 + 30, y: 84)
+        case .eating:   InteractiveCat(mood: .eat, scale: 1.5).offset(x: 50, y: 80)
+        case .alarmed:  InteractiveCat(mood: .alarm, scale: 1.5).offset(x: w * 0.22 + 70, y: 90)
+        case .playing:  InteractiveCat(mood: .walk, scale: 2).offset(x: w * 0.22 + 84, y: 118)
+        case .strolling: StrollingCat(width: w, y: 118)
         }
     }
 

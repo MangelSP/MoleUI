@@ -4,6 +4,7 @@ import SwiftUI
 struct MenuBarView: View {
     @EnvironmentObject var status: DashboardViewModel
     @Environment(\.openWindow) private var openWindow
+    @AppStorage(CatSettings.key) private var catEnabled = true
 
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -16,6 +17,11 @@ struct MenuBarView: View {
                         Text("Health \(s.healthScore)").font(.display(16, .semibold))
                         Text(s.healthScoreMsg).font(.caption).foregroundStyle(.secondary)
                             .lineLimit(2).fixedSize(horizontal: false, vertical: true)
+                    }
+                    if catEnabled {
+                        Spacer(minLength: 0)
+                        InteractiveCat(mood: PixelCat.mood(health: s.healthScore, cpu: s.cpu.usage, memory: s.memory.usedPercent),
+                                       scale: 1.5)
                     }
                 }
                 VStack(spacing: 6) {
@@ -42,6 +48,9 @@ struct MenuBarView: View {
                 }
                 actionButton("Clean in Terminal…", "trash") { TerminalHandoff.run("mo clean") }
                 actionButton("Optimize in Terminal…", "bolt") { TerminalHandoff.run("mo optimize") }
+                if catEnabled {
+                    actionButton("Feed the cat (Free RAM)", "pawprint") { Task { _ = await MemoryService.freeRAM() } }
+                }
                 actionButton("Free RAM", "wand.and.sparkles") { Task { _ = await MemoryService.freeRAM() } }
                 actionButton("Refresh", "arrow.clockwise") { Task { await status.refresh() } }
             }

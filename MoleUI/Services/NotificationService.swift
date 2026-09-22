@@ -19,21 +19,29 @@ final class NotificationService {
         guard settings.alertsEnabled else { active.removeAll(); return }
 
         check("cpu", value: s.cpu.usage, threshold: settings.cpuThreshold,
-              title: "CPU saturada", body: "CPU al \(Int(s.cpu.usage))%. Revisa los procesos en el Dashboard.")
+              title: cat("CPU saturada"), body: "CPU al \(Int(s.cpu.usage))%. Revisa Processes para ver quién la consume.")
 
         check("ram", value: s.memory.usedPercent, threshold: settings.ramThreshold,
-              title: "Memoria RAM llena", body: "RAM al \(Int(s.memory.usedPercent))%. Cierra apps o usa Maintenance → Clean.")
+              title: cat("Memoria RAM llena"), body: "RAM al \(Int(s.memory.usedPercent))%. Cierra apps, o Free RAM desde la barra de menú.")
 
         if let disk = s.disks.first {
             check("disk", value: disk.usedPercent, threshold: settings.diskThreshold,
-                  title: "Poco espacio en disco", body: "Disco al \(Int(disk.usedPercent))%. Revisa Auto-Clean / Analyze para liberar espacio.")
+                  title: cat("Poco espacio en disco"), body: "Disco al \(Int(disk.usedPercent))%. Revisa Auto-Clean / Analyze para liberar espacio.")
         }
 
         // cpu_temp is 0 on Apple Silicon without elevated perms — only alert on a real reading.
         if s.thermal.cpuTemp > 0 {
             check("temp", value: s.thermal.cpuTemp, threshold: settings.tempThreshold,
-                  title: "Temperatura alta", body: "CPU a \(Int(s.thermal.cpuTemp))°C.")
+                  title: cat("Temperatura alta"), body: "CPU a \(Int(s.thermal.cpuTemp))°C.")
         }
+    }
+
+    /// The cat hisses in the title when the mascot is on.
+    private func cat(_ title: String) -> String { CatSettings.enabled ? "🙀 \(title)" : title }
+
+    /// Fire one immediately so the user can confirm macOS is showing them.
+    func sendTest() {
+        post(cat("Prueba de notificación"), "Así te avisará MoleUI cuando CPU, RAM o disco pasen el umbral.", id: "test-\(Int(Date().timeIntervalSince1970))")
     }
 
     private func check(_ key: String, value: Double, threshold: Double, title: String, body: String) {
