@@ -36,7 +36,7 @@ struct DashboardView: View {
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
             } else {
                 VStack(spacing: 14) {
-                    ProgressView().controlSize(.large).tint(Theme.emerald)
+                    PixelCat(mood: .box)
                     Text("Reading system status…").font(.monoLabel(12)).foregroundStyle(.secondary)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)

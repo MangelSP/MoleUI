@@ -52,6 +52,7 @@
 		630079499D908838C6A12464 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FCB8953AE57039F8C975994A /* Assets.xcassets */; };
 		5A11AA0000000000000000A3 /* SwiftTerm in Frameworks */ = {isa = PBXBuildFile; productRef = 5A11AA0000000000000000A2 /* SwiftTerm */; };
 		5A11AA0000000000000000B1 /* EmbeddedTerminal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A11AA0000000000000000B2 /* EmbeddedTerminal.swift */; };
+		5A11AA0000000000000000C1 /* PixelCat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A11AA0000000000000000C2 /* PixelCat.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -98,6 +99,7 @@
 		91FA04FC22E5ACCA871ACA60 /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "RootView.swift"; path = "Views/RootView.swift"; sourceTree = "<group>"; };
 		D2493CFC41B88079CEA99820 /* Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "Components.swift"; path = "Views/Shared/Components.swift"; sourceTree = "<group>"; };
 		5A11AA0000000000000000B2 /* EmbeddedTerminal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "EmbeddedTerminal.swift"; path = "Views/Shared/EmbeddedTerminal.swift"; sourceTree = "<group>"; };
+		5A11AA0000000000000000C2 /* PixelCat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "PixelCat.swift"; path = "Views/Shared/PixelCat.swift"; sourceTree = "<group>"; };
 		57B25C2BD12D75B1E1BD00D9 /* DetailSheets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DetailSheets.swift"; path = "Views/Shared/DetailSheets.swift"; sourceTree = "<group>"; };
 		FCB8953AE57039F8C975994A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -167,6 +169,7 @@
 				91FA04FC22E5ACCA871ACA60 /* RootView.swift */,
 				D2493CFC41B88079CEA99820 /* Components.swift */,
 				57B25C2BD12D75B1E1BD00D9 /* DetailSheets.swift */,
+				5A11AA0000000000000000C2 /* PixelCat.swift */,
 				5A11AA0000000000000000B2 /* EmbeddedTerminal.swift */,
 				FCB8953AE57039F8C975994A /* Assets.xcassets */,
 			);
@@ -298,6 +301,7 @@
 				FCDE762B2FA709BDE5DD7B78 /* RootView.swift in Sources */,
 				7391F98E6681C7598D9A1375 /* Components.swift in Sources */,
 				0BB0893012B306775695F7B2 /* DetailSheets.swift in Sources */,
+				5A11AA0000000000000000C1 /* PixelCat.swift in Sources */,
 				5A11AA0000000000000000B1 /* EmbeddedTerminal.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -146,7 +146,10 @@ struct ProcessesView: View {
 
     @ViewBuilder private var content: some View {
         if isLoading {
-            ProgressView("Reading processes…").frame(maxWidth: .infinity, maxHeight: .infinity)
+            VStack(spacing: 10) {
+                PixelCat(mood: .walk)
+                Text("Reading processes…").foregroundStyle(.secondary)
+            }.frame(maxWidth: .infinity, maxHeight: .infinity)
         } else {
             VStack(spacing: 0) {
                 if let cpu = dash.status?.cpu {
